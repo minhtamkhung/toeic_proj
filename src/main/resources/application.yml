@@ -13,9 +13,9 @@ spring:
 
   # ── PostgreSQL ──────────────────────────────────────────────
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/toeic_db}
+    url: ${DB_URL:jdbc:postgresql://localhost:5433/toeic_db}
     username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:1234}
+    password: ${DB_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -28,10 +28,9 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     open-in-view: false           # tắt OSIV — tránh lazy loading ngoài transaction
-
-  sql:
-    init:
-      mode: never                 # đổi 'always' lần đầu chạy để chạy schema.sql
+  flyway:
+    enabled: true
+                # đổi 'always' lần đầu chạy để chạy schema.sql
 
   # ── Redis ───────────────────────────────────────────────────
   data:

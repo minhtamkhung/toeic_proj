@@ -104,7 +104,7 @@ public class QuizServiceImpl implements QuizService {
         }
 
         Flashcard flashcard = flashcardRepository
-                .findByIdAndIsActiveTrue(request.flashcardId())
+                .findByIdAndActiveTrue(request.flashcardId())
                 .orElseThrow(() -> AppException.notFound("Không tìm thấy flashcard"));
 
         // Đáp án đúng là definition của flashcard

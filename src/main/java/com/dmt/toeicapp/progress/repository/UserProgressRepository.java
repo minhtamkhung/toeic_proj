@@ -23,7 +23,7 @@ public interface UserProgressRepository extends JpaRepository<UserProgress, Long
             SELECT p FROM UserProgress p
             WHERE p.user.id = :userId
               AND p.nextReviewAt <= :now
-              AND p.flashcard.isActive = true
+              AND p.flashcard.active = true
             ORDER BY p.nextReviewAt ASC
             """)
     List<UserProgress> findDueForReview(@Param("userId") Long userId,

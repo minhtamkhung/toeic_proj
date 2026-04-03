@@ -63,7 +63,7 @@ public class FlashcardServiceImpl implements FlashcardService {
         Long  currentUserId = SecurityUtils.getCurrentUserId();
         Topic topic         = findTopicAndCheckAccess(request.topicId());
 
-        if (flashcardRepository.existsByWordAndTopicIdAndIsActiveTrue(
+        if (flashcardRepository.existsByWordAndTopicIdAndActiveTrue(
                 request.word(), topic.getId())) {
             throw AppException.conflict(
                     "Từ '" + request.word() + "' đã tồn tại trong topic này",
@@ -93,7 +93,7 @@ public class FlashcardServiceImpl implements FlashcardService {
         Topic     topic = findTopicAndCheckAccess(request.topicId());
 
         boolean wordChanged = !card.getWord().equalsIgnoreCase(request.word());
-        if (wordChanged && flashcardRepository.existsByWordAndTopicIdAndIsActiveTrue(
+        if (wordChanged && flashcardRepository.existsByWordAndTopicIdAndActiveTrue(
                 request.word(), topic.getId())) {
             throw AppException.conflict(
                     "Từ '" + request.word() + "' đã tồn tại trong topic này",
@@ -155,7 +155,7 @@ public class FlashcardServiceImpl implements FlashcardService {
 
     private Flashcard findCardAndCheckAccess(Long id) {
         Long      currentUserId = SecurityUtils.getCurrentUserId();
-        Flashcard card = flashcardRepository.findByIdAndIsActiveTrue(id)
+        Flashcard card = flashcardRepository.findByIdAndActiveTrue(id)
                 .orElseThrow(() -> AppException.notFound(
                         "Không tìm thấy flashcard với id = " + id));
 
@@ -174,7 +174,7 @@ public class FlashcardServiceImpl implements FlashcardService {
         Long    currentUserId = SecurityUtils.getCurrentUserId();
         boolean isAdmin       = SecurityUtils.isAdmin();
 
-        Flashcard card = flashcardRepository.findByIdAndIsActiveTrue(id)
+        Flashcard card = flashcardRepository.findByIdAndActiveTrue(id)
                 .orElseThrow(() -> AppException.notFound(
                         "Không tìm thấy flashcard với id = " + id));
 

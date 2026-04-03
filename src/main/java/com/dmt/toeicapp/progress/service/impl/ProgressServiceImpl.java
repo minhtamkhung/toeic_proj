@@ -58,7 +58,7 @@ public class ProgressServiceImpl implements ProgressService {
 
         // Lấy flashcard — kiểm tra tồn tại
         Flashcard flashcard = flashcardRepository
-                .findByIdAndIsActiveTrue(request.flashcardId())
+                .findByIdAndActiveTrue(request.flashcardId())
                 .orElseThrow(() -> AppException.notFound(
                         "Không tìm thấy flashcard với id = " + request.flashcardId()));
 

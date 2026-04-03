@@ -12,7 +12,7 @@ CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 -- -------------------------------------------------------------
 -- 1. USERS
 -- -------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE users (
                        id            BIGSERIAL       PRIMARY KEY,
                        username      VARCHAR(50)     NOT NULL UNIQUE,
                        email         VARCHAR(255)    NOT NULL UNIQUE,
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS users (
 -- -------------------------------------------------------------
 -- 2. TOPICS
 -- -------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS topics (
+CREATE TABLE topics (
                         id            BIGSERIAL       PRIMARY KEY,
                         name          VARCHAR(100)    NOT NULL,
                         description   TEXT,
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS topics (
 -- -------------------------------------------------------------
 -- 3. FLASHCARDS
 -- -------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS flashcards (
+CREATE TABLE flashcards (
                             id               BIGSERIAL       PRIMARY KEY,
                             topic_id         BIGINT          NOT NULL REFERENCES topics(id) ON DELETE RESTRICT,
                             created_by       BIGINT          NOT NULL REFERENCES users(id) ON DELETE RESTRICT,
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS flashcards (
 -- -------------------------------------------------------------
 -- 4. USER_PROGRESS  (SM-2 Spaced Repetition)
 -- -------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS user_progress (
+CREATE TABLE user_progress (
                                id               BIGSERIAL       PRIMARY KEY,
                                user_id          BIGINT          NOT NULL REFERENCES users(id) ON DELETE CASCADE,
                                flashcard_id     BIGINT          NOT NULL REFERENCES flashcards(id) ON DELETE CASCADE,
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS user_progress (
 -- -------------------------------------------------------------
 -- 5. QUIZ_ATTEMPTS
 -- -------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS quiz_attempts (
+CREATE TABLE quiz_attempts (
                                id               BIGSERIAL       PRIMARY KEY,
                                user_id          BIGINT          NOT NULL REFERENCES users(id) ON DELETE CASCADE,
                                topic_id         BIGINT          REFERENCES topics(id) ON DELETE SET NULL,
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS quiz_attempts (
 -- -------------------------------------------------------------
 -- 6. QUIZ_OPTIONS  (các đáp án cho mỗi flashcard)
 -- -------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS quiz_options (
+CREATE TABLE quiz_options (
                               id            BIGSERIAL       PRIMARY KEY,
                               flashcard_id  BIGINT          NOT NULL REFERENCES flashcards(id) ON DELETE CASCADE,
                               option_text   VARCHAR(500)    NOT NULL,
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS quiz_options (
 -- -------------------------------------------------------------
 -- 7. QUIZ_ANSWERS  (chi tiết từng câu trả lời trong 1 attempt)
 -- -------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS quiz_answers (
+CREATE TABLE quiz_answers (
                               id                 BIGSERIAL       PRIMARY KEY,
                               attempt_id         BIGINT          NOT NULL REFERENCES quiz_attempts(id) ON DELETE CASCADE,
                               flashcard_id       BIGINT          NOT NULL REFERENCES flashcards(id) ON DELETE RESTRICT,
@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS quiz_answers (
 -- -------------------------------------------------------------
 -- 8. AUDIT_LOGS  (ghi bởi AuditAspect — không ghi tay)
 -- -------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS audit_logs (
+CREATE TABLE audit_logs (
                             id           BIGSERIAL       PRIMARY KEY,
                             user_id      BIGINT          REFERENCES users(id) ON DELETE SET NULL, -- nullable
                             action       VARCHAR(20)     NOT NULL
@@ -164,13 +164,91 @@ CREATE INDEX idx_audit_entity  ON audit_logs(entity_type, entity_id);
 CREATE INDEX idx_audit_user_id ON audit_logs(user_id);
 
 -- =============================================================
--- SEED DATA — system topics & admin user (mật khẩu đổi sau)
+-- I18N — Đa ngôn ngữ
+-- =============================================================
+-- =============================================================
+-- 9. SUPPORTED_LOCALES — danh sách ngôn ngữ hỗ trợ
+-- =============================================================
+CREATE TABLE supported_locales (
+                                   code          VARCHAR(10)  PRIMARY KEY,  -- 'vi', 'en', 'ja', ...
+                                   name          VARCHAR(50)  NOT NULL,
+                                   native_name   VARCHAR(50)  NOT NULL,
+                                   is_default    BOOLEAN      NOT NULL DEFAULT FALSE,
+                                   is_active     BOOLEAN      NOT NULL DEFAULT TRUE,
+                                   display_order INT          NOT NULL DEFAULT 0,
+                                   created_at    TIMESTAMPTZ  NOT NULL DEFAULT NOW()
+);
+
+-- chỉ 1 locale mặc định
+CREATE UNIQUE INDEX idx_locales_default
+    ON supported_locales(is_default)
+    WHERE is_default = TRUE;
+
+-- filter locale đang active
+CREATE INDEX idx_locales_active
+    ON supported_locales(is_active);
+
+-- =============================================================
+-- 10. FLASHCARD_TRANSLATIONS
+-- =============================================================
+CREATE TABLE flashcard_translations (
+                                        id               BIGSERIAL      PRIMARY KEY,
+                                        flashcard_id     BIGINT         NOT NULL
+                                            REFERENCES flashcards(id) ON DELETE CASCADE,
+                                        locale           VARCHAR(10)    NOT NULL
+                                            REFERENCES supported_locales(code),
+                                        definition       TEXT           NOT NULL,
+                                        example_sentence TEXT,
+                                        created_by       BIGINT
+                                                                        REFERENCES users(id) ON DELETE SET NULL,
+                                        created_at       TIMESTAMPTZ    NOT NULL DEFAULT NOW(),
+                                        updated_at       TIMESTAMPTZ    NOT NULL DEFAULT NOW(),
+
+    -- mỗi flashcard chỉ có 1 bản dịch / locale
+                                        CONSTRAINT uq_flashcard_locale UNIQUE (flashcard_id, locale)
+);
+
+-- index cho query theo locale (admin / filter)
+CREATE INDEX idx_flashcard_trans_locale
+    ON flashcard_translations(locale);
+
+-- =============================================================
+-- 11. TOPIC_TRANSLATIONS
+-- =============================================================
+CREATE TABLE topic_translations (
+                                    id           BIGSERIAL      PRIMARY KEY,
+                                    topic_id     BIGINT         NOT NULL
+                                        REFERENCES topics(id) ON DELETE CASCADE,
+                                    locale       VARCHAR(10)    NOT NULL
+                                        REFERENCES supported_locales(code),
+                                    name         VARCHAR(100)   NOT NULL,
+                                    description  TEXT,
+                                    created_at   TIMESTAMPTZ    NOT NULL DEFAULT NOW(),
+                                    updated_at   TIMESTAMPTZ    NOT NULL DEFAULT NOW(),
+
+                                    CONSTRAINT uq_topic_locale UNIQUE (topic_id, locale)
+);
+
+-- index cho filter theo locale
+CREATE INDEX idx_topic_trans_locale
+    ON topic_translations(locale);
+
+-- =============================================================
+-- SEED DATA — LOCALES
 -- =============================================================
 
 -- Admin account (password: 'changeme' — đổi ngay sau khi setup)
 INSERT INTO users (username, email, password_hash, role)
 VALUES ('admin', 'admin@toeicapp.com',
         '$2a$12$placeholder_change_this_immediately', 'ADMIN');
+
+-- Supported locales
+INSERT INTO supported_locales (code, name, native_name, is_default, display_order)
+VALUES
+    ('en', 'English',    'English',    FALSE, 1),
+    ('vi', 'Vietnamese', 'Tiếng Việt', TRUE,  2),
+    ('ja', 'Japanese',   '日本語',       FALSE, 3),
+    ('ko', 'Korean',     '한국어',       FALSE, 4);
 
 -- System topics
 INSERT INTO topics (name, description, display_order, is_system, created_by)

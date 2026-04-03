@@ -15,7 +15,7 @@ public interface FlashcardRepository extends JpaRepository<Flashcard, Long> {
     // Hỗ trợ phân trang vì có thể nhiều card
     @Query("""
             SELECT f FROM Flashcard f
-            WHERE f.isActive = true
+            WHERE f.active = true
               AND (f.topic.system = true OR f.topic.createdBy.id = :userId)
             ORDER BY f.createdAt DESC
             """)
@@ -24,15 +24,15 @@ public interface FlashcardRepository extends JpaRepository<Flashcard, Long> {
     // Lấy flashcard theo topic cụ thể (đã kiểm tra quyền truy cập topic ở Service)
     @Query("""
             SELECT f FROM Flashcard f
-            WHERE f.isActive = true
+            WHERE f.active = true
               AND f.topic.id = :topicId
             ORDER BY f.createdAt DESC
             """)
     Page<Flashcard> findByTopicId(@Param("topicId") Long topicId, Pageable pageable);
 
     // Tìm flashcard active theo id — tránh lấy card đã bị soft delete
-    Optional<Flashcard> findByIdAndIsActiveTrue(Long id);
+    Optional<Flashcard> findByIdAndActiveTrue(Long id);
 
     // Kiểm tra word trùng trong cùng một topic (tránh duplicate)
-    boolean existsByWordAndTopicIdAndIsActiveTrue(String word, Long topicId);
+    boolean existsByWordAndTopicIdAndActiveTrue(String word, Long topicId);
 }
