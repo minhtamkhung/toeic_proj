@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Topics - TOEIC Sanctuary</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-variant": "#e1e3e4",
+              "on-surface": "#191c1d",
+              "secondary-fixed": "#d8e2ff",
+              "inverse-surface": "#2e3132",
+              "secondary": "#495e8a",
+              "on-background": "#191c1d",
+              "surface-tint": "#005ac2",
+              "surface": "#f8f9fa",
+              "error-container": "#ffdad6",
+              "on-error": "#ffffff",
+              "surface-dim": "#d9dadb",
+              "error": "#ba1a1a",
+              "on-tertiary-container": "#fffbff",
+              "tertiary-container": "#b75b00",
+              "on-tertiary-fixed-variant": "#723600",
+              "on-primary-fixed": "#001a42",
+              "on-tertiary": "#ffffff",
+              "background": "#f8f9fa",
+              "on-surface-variant": "#424754",
+              "inverse-on-surface": "#f0f1f2",
+              "secondary-container": "#b6ccff",
+              "tertiary-fixed": "#ffdcc6",
+              "tertiary-fixed-dim": "#ffb786",
+              "on-secondary": "#ffffff",
+              "on-primary-container": "#fefcff",
+              "surface-container-highest": "#e1e3e4",
+              "tertiary": "#924700",
+              "primary": "#0058be",
+              "on-error-container": "#93000a",
+              "primary-fixed": "#d8e2ff",
+              "secondary-fixed-dim": "#b1c6f9",
+              "outline-variant": "#c2c6d6",
+              "surface-container": "#edeeef",
+              "primary-container": "#2170e4",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-fixed": "#001a42",
+              "on-secondary-fixed-variant": "#304671",
+              "on-secondary-container": "#405682",
+              "outline": "#727785",
+              "inverse-primary": "#adc6ff",
+              "surface-bright": "#f8f9fa",
+              "on-primary-fixed-variant": "#004395",
+              "surface-container-low": "#f3f4f5",
+              "primary-fixed-dim": "#adc6ff",
+              "on-primary": "#ffffff",
+              "surface-container-high": "#e7e8e9",
+              "on-tertiary-fixed": "#311400"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .font-plus-jakarta-sans { font-family: 'Plus Jakarta Sans', sans-serif; }
+      .ease-out-expo { transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1); }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-none bg-slate-50 dark:bg-slate-900 flex flex-col py-6 gap-2 z-50">
+<div class="px-8 mb-8">
+<h1 class="text-xl font-bold text-blue-700 dark:text-blue-300 font-headline">TOEIC Sanctuary</h1>
+<p class="text-xs text-slate-400 font-medium tracking-widest uppercase mt-1">Fluent Path</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 mx-2 rounded-full transition-all duration-200 flex items-center gap-3 hover:bg-slate-200 dark:hover:bg-slate-800 scale-98 active:scale-95 ease-out-expo" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-plus-jakarta-sans text-sm font-semibold tracking-tight">Dashboard</span>
+</a>
+<a class="bg-blue-600 dark:bg-blue-500 text-white rounded-full mx-2 px-4 py-3 flex items-center gap-3 shadow-lg shadow-blue-200/50 dark:shadow-none scale-98 active:scale-95 ease-out-expo" href="#">
+<span class="material-symbols-outlined" data-icon="folder" style="font-variation-settings: 'FILL' 1;">folder</span>
+<span class="font-plus-jakarta-sans text-sm font-semibold tracking-tight">Topics</span>
+</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 mx-2 rounded-full transition-all duration-200 flex items-center gap-3 hover:bg-slate-200 dark:hover:bg-slate-800 scale-98 active:scale-95 ease-out-expo" href="#">
+<span class="material-symbols-outlined" data-icon="style">style</span>
+<span class="font-plus-jakarta-sans text-sm font-semibold tracking-tight">Flashcards</span>
+</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 mx-2 rounded-full transition-all duration-200 flex items-center gap-3 hover:bg-slate-200 dark:hover:bg-slate-800 scale-98 active:scale-95 ease-out-expo" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="font-plus-jakarta-sans text-sm font-semibold tracking-tight">Study</span>
+</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 mx-2 rounded-full transition-all duration-200 flex items-center gap-3 hover:bg-slate-200 dark:hover:bg-slate-800 scale-98 active:scale-95 ease-out-expo" href="#">
+<span class="material-symbols-outlined" data-icon="quiz">quiz</span>
+<span class="font-plus-jakarta-sans text-sm font-semibold tracking-tight">Quiz</span>
+</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 mx-2 rounded-full transition-all duration-200 flex items-center gap-3 hover:bg-slate-200 dark:hover:bg-slate-800 scale-98 active:scale-95 ease-out-expo" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-plus-jakarta-sans text-sm font-semibold tracking-tight">Profile</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<div class="p-4 bg-slate-100 dark:bg-slate-800/50 rounded-2xl flex items-center gap-3">
+<img alt="User Avatar" class="w-10 h-10 rounded-full object-cover" data-alt="Portrait of a smiling professional user" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAqXdvDygn3iwJIei0pbHsb6ggCzaqSWZjWrTdBiaxbFfmuhkm8w4a5PyNKw6Qf8oFy2RkDpFCGFY5ywoV6DV56mtP6nJPVXaGx43G6hRaZCXOiRWNWb-dlerXYRAaGQTeURpGQNiw2xmYpkMlT7ATE8euaUa6jhLngMlfOwLnHBVlFrEO-ggS-FZ2omDiV1Q-pcnnk5-JuRR6M_Ol-kYrXKQec1SlV5Vg8GgK_dm6sdElzlx3p8xzpTqWlQVE0a0hE5ZGWZiMh2s"/>
+<div class="overflow-hidden">
+<p class="text-sm font-bold truncate">Alex Chen</p>
+<p class="text-xs text-slate-500">Pro Scholar</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl transition-all duration-300 ease-in-out">
+<div class="flex items-center justify-between px-8 max-w-7xl mx-auto h-full">
+<div class="flex items-center flex-1 max-w-md">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20 placeholder:text-slate-400 transition-all" placeholder="Search topics..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full p-2 transition-all duration-300">
+<span class="material-symbols-outlined text-slate-600" data-icon="notifications">notifications</span>
+</button>
+<button class="hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full p-2 transition-all duration-300">
+<span class="material-symbols-outlined text-slate-600" data-icon="settings">settings</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 pt-24 px-8 pb-12 max-w-7xl mx-auto min-h-screen">
+<!-- Header Section with Asymmetric Layout -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+<div class="max-w-xl">
+<h2 class="font-headline text-5xl font-extrabold tracking-tight text-on-surface mb-4">Study Topics</h2>
+<p class="text-on-surface-variant text-lg leading-relaxed">Organize your learning journey with curated vocabulary sets and custom collections designed for TOEIC mastery.</p>
+</div>
+<button class="flex items-center gap-2 bg-primary text-on-primary px-8 py-4 rounded-md font-bold shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all ease-out-expo whitespace-nowrap">
+<span class="material-symbols-outlined">add_circle</span>
+                Create new topic
+            </button>
+</div>
+<!-- Filters Section -->
+<div class="flex flex-wrap items-center gap-4 mb-8">
+<button class="px-6 py-2 rounded-full border border-outline-variant/30 text-sm font-semibold hover:bg-surface-container transition-all">All Topics (7)</button>
+<button class="px-6 py-2 rounded-full bg-secondary-container text-on-secondary-container text-sm font-bold flex items-center gap-2">
+                My topics <span class="bg-secondary px-2 py-0.5 rounded-full text-[10px] text-white">2</span>
+</button>
+<button class="px-6 py-2 rounded-full bg-primary-fixed text-on-primary-fixed text-sm font-bold flex items-center gap-2">
+                System topics <span class="bg-primary px-2 py-0.5 rounded-full text-[10px] text-white">5</span>
+</button>
+<div class="h-6 w-px bg-outline-variant/30 mx-2"></div>
+<button class="flex items-center gap-2 text-primary font-bold text-sm hover:underline">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+                More Filters
+            </button>
+</div>
+<!-- Topics Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Topic Card 1: System -->
+<div class="group relative bg-surface-container-lowest rounded-xl p-8 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 ease-out-expo border border-outline-variant/10">
+<div class="flex justify-between items-start mb-6">
+<div class="w-14 h-14 bg-primary-fixed rounded-xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-3xl" data-icon="business">business</span>
+</div>
+<span class="text-[10px] font-bold tracking-widest uppercase py-1 px-3 bg-surface-container-high rounded-full">System</span>
+</div>
+<h3 class="font-headline text-2xl font-bold mb-3 group-hover:text-primary transition-colors">Business English</h3>
+<p class="text-on-surface-variant text-sm mb-6 leading-relaxed">Essential vocabulary for the office environment, meetings, and formal correspondence.</p>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center border-2 border-surface-container-lowest"><span class="text-[10px] font-bold">450</span></div>
+<div class="text-xs text-on-surface-variant font-medium ml-4 self-center">Words available</div>
+</div>
+<button class="text-primary font-bold text-sm flex items-center gap-1 group/btn">
+                        Study Now
+                        <span class="material-symbols-outlined text-sm group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Topic Card 2: User -->
+<div class="group relative bg-surface-container-lowest rounded-xl p-8 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 ease-out-expo border border-outline-variant/10">
+<div class="flex justify-between items-start mb-6">
+<div class="w-14 h-14 bg-tertiary-fixed rounded-xl flex items-center justify-center text-tertiary group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-3xl" data-icon="flight">flight</span>
+</div>
+<span class="text-[10px] font-bold tracking-widest uppercase py-1 px-3 bg-secondary-container rounded-full text-on-secondary-container">Personal</span>
+</div>
+<h3 class="font-headline text-2xl font-bold mb-3 group-hover:text-tertiary transition-colors">Travel &amp; Tourism</h3>
+<p class="text-on-surface-variant text-sm mb-6 leading-relaxed">Common phrases and terms used in airports, hotels, and international travel contexts.</p>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center border-2 border-surface-container-lowest"><span class="text-[10px] font-bold">120</span></div>
+<div class="text-xs text-on-surface-variant font-medium ml-4 self-center">Words available</div>
+</div>
+<button class="text-tertiary font-bold text-sm flex items-center gap-1 group/btn">
+                        Review
+                        <span class="material-symbols-outlined text-sm group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Topic Card 3: System -->
+<div class="group relative bg-surface-container-lowest rounded-xl p-8 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 ease-out-expo border border-outline-variant/10">
+<div class="flex justify-between items-start mb-6">
+<div class="w-14 h-14 bg-primary-fixed rounded-xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-3xl" data-icon="payments">payments</span>
+</div>
+<span class="text-[10px] font-bold tracking-widest uppercase py-1 px-3 bg-surface-container-high rounded-full">System</span>
+</div>
+<h3 class="font-headline text-2xl font-bold mb-3 group-hover:text-primary transition-colors">Finance &amp; Banking</h3>
+<p class="text-on-surface-variant text-sm mb-6 leading-relaxed">Master the terminology of investments, accounting, and financial reporting.</p>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center border-2 border-surface-container-lowest"><span class="text-[10px] font-bold">380</span></div>
+<div class="text-xs text-on-surface-variant font-medium ml-4 self-center">Words available</div>
+</div>
+<button class="text-primary font-bold text-sm flex items-center gap-1 group/btn">
+                        Study Now
+                        <span class="material-symbols-outlined text-sm group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Topic Card 4: System -->
+<div class="group relative bg-surface-container-lowest rounded-xl p-8 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 ease-out-expo border border-outline-variant/10">
+<div class="flex justify-between items-start mb-6">
+<div class="w-14 h-14 bg-primary-fixed rounded-xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-3xl" data-icon="stethoscope">stethoscope</span>
+</div>
+<span class="text-[10px] font-bold tracking-widest uppercase py-1 px-3 bg-surface-container-high rounded-full">System</span>
+</div>
+<h3 class="font-headline text-2xl font-bold mb-3 group-hover:text-primary transition-colors">Health &amp; Wellness</h3>
+<p class="text-on-surface-variant text-sm mb-6 leading-relaxed">Medical appointments, workplace ergonomics, and general health vocabulary.</p>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center border-2 border-surface-container-lowest"><span class="text-[10px] font-bold">210</span></div>
+<div class="text-xs text-on-surface-variant font-medium ml-4 self-center">Words available</div>
+</div>
+<button class="text-primary font-bold text-sm flex items-center gap-1 group/btn">
+                        Study Now
+                        <span class="material-symbols-outlined text-sm group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Topic Card 5: User -->
+<div class="group relative bg-surface-container-lowest rounded-xl p-8 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 ease-out-expo border border-outline-variant/10">
+<div class="flex justify-between items-start mb-6">
+<div class="w-14 h-14 bg-tertiary-fixed rounded-xl flex items-center justify-center text-tertiary group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-3xl" data-icon="restaurant">restaurant</span>
+</div>
+<span class="text-[10px] font-bold tracking-widest uppercase py-1 px-3 bg-secondary-container rounded-full text-on-secondary-container">Personal</span>
+</div>
+<h3 class="font-headline text-2xl font-bold mb-3 group-hover:text-tertiary transition-colors">Dining &amp; Socializing</h3>
+<p class="text-on-surface-variant text-sm mb-6 leading-relaxed">Vocabulary for social events, restaurant ordering, and networking over meals.</p>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center border-2 border-surface-container-lowest"><span class="text-[10px] font-bold">95</span></div>
+<div class="text-xs text-on-surface-variant font-medium ml-4 self-center">Words available</div>
+</div>
+<button class="text-tertiary font-bold text-sm flex items-center gap-1 group/btn">
+                        Review
+                        <span class="material-symbols-outlined text-sm group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Topic Card 6: System -->
+<div class="group relative bg-surface-container-lowest rounded-xl p-8 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 ease-out-expo border border-outline-variant/10">
+<div class="flex justify-between items-start mb-6">
+<div class="w-14 h-14 bg-primary-fixed rounded-xl flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-3xl" data-icon="factory">factory</span>
+</div>
+<span class="text-[10px] font-bold tracking-widest uppercase py-1 px-3 bg-surface-container-high rounded-full">System</span>
+</div>
+<h3 class="font-headline text-2xl font-bold mb-3 group-hover:text-primary transition-colors">Manufacturing</h3>
+<p class="text-on-surface-variant text-sm mb-6 leading-relaxed">Technical terms related to production lines, logistics, and quality control.</p>
+<div class="flex items-center justify-between mt-auto">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center border-2 border-surface-container-lowest"><span class="text-[10px] font-bold">155</span></div>
+<div class="text-xs text-on-surface-variant font-medium ml-4 self-center">Words available</div>
+</div>
+<button class="text-primary font-bold text-sm flex items-center gap-1 group/btn">
+                        Study Now
+                        <span class="material-symbols-outlined text-sm group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Empty State (Hidden in this mock by design, but structured correctly) -->
+<div class="hidden flex flex-col items-center justify-center py-24 text-center">
+<div class="w-64 h-64 mb-8 bg-surface-container-low rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-8xl text-outline-variant" data-icon="search_off">search_off</span>
+</div>
+<h4 class="text-2xl font-headline font-bold text-on-surface mb-2">No topics found</h4>
+<p class="text-on-surface-variant max-w-xs mb-8">We couldn't find any topics matching your search. Try broadening your criteria or create a new one.</p>
+<button class="text-primary font-bold flex items-center gap-2 hover:bg-primary-fixed px-6 py-2 rounded-full transition-all">
+<span class="material-symbols-outlined">refresh</span>
+                Clear all filters
+            </button>
+</div>
+</main>
+<!-- Floating Action Button for Mobile -->
+<button class="md:hidden fixed bottom-8 right-8 w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center z-50">
+<span class="material-symbols-outlined">add</span>
+</button>
+</body></html>

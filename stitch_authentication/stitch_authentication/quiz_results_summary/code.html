@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Quiz Results - Cognitive Sanctuary</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-error": "#ffffff",
+              "tertiary-fixed": "#ffdcc6",
+              "surface-container-lowest": "#ffffff",
+              "on-primary-fixed": "#001a42",
+              "surface-tint": "#005ac2",
+              "primary-container": "#2170e4",
+              "on-tertiary-fixed": "#311400",
+              "on-secondary-container": "#405682",
+              "on-primary-container": "#fefcff",
+              "on-secondary-fixed": "#001a42",
+              "tertiary-fixed-dim": "#ffb786",
+              "surface-bright": "#f8f9fa",
+              "primary": "#0058be",
+              "on-primary": "#ffffff",
+              "background": "#f8f9fa",
+              "surface-container-low": "#f3f4f5",
+              "inverse-on-surface": "#f0f1f2",
+              "tertiary-container": "#b75b00",
+              "on-error-container": "#93000a",
+              "outline-variant": "#c2c6d6",
+              "secondary-container": "#b6ccff",
+              "secondary": "#495e8a",
+              "primary-fixed": "#d8e2ff",
+              "surface-variant": "#e1e3e4",
+              "secondary-fixed": "#d8e2ff",
+              "inverse-surface": "#2e3132",
+              "surface": "#f8f9fa",
+              "primary-fixed-dim": "#adc6ff",
+              "on-primary-fixed-variant": "#004395",
+              "inverse-primary": "#adc6ff",
+              "error-container": "#ffdad6",
+              "outline": "#727785",
+              "on-tertiary-container": "#fffbff",
+              "on-tertiary": "#ffffff",
+              "on-surface-variant": "#424754",
+              "surface-container-highest": "#e1e3e4",
+              "surface-dim": "#d9dadb",
+              "on-secondary-fixed-variant": "#304671",
+              "error": "#ba1a1a",
+              "on-background": "#191c1d",
+              "on-tertiary-fixed-variant": "#723600",
+              "surface-container": "#edeeef",
+              "secondary-fixed-dim": "#b1c6f9",
+              "on-secondary": "#ffffff",
+              "tertiary": "#924700",
+              "on-surface": "#191c1d",
+              "surface-container-high": "#e7e8e9"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .ease-out-expo {
+            transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopAppBar -->
+<header class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl fixed top-0 w-full z-50 flex justify-between items-center px-6 h-20 w-full shadow-sm shadow-blue-500/5">
+<div class="flex items-center gap-4">
+<span class="text-2xl font-bold tracking-tighter text-blue-700 dark:text-blue-400 font-headline">Cognitive Sanctuary</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex items-center gap-8 mr-8">
+<a class="text-blue-700 dark:text-blue-300 font-bold font-headline transition-colors" href="#">Study Hub</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-blue-50/50 dark:hover:bg-blue-900/20 transition-colors font-headline" href="#">Quiz Center</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-blue-50/50 dark:hover:bg-blue-900/20 transition-colors font-headline" href="#">Mastery Stats</a>
+</div>
+<div class="flex items-center gap-3">
+<button class="material-symbols-outlined text-slate-500 hover:bg-blue-50/50 p-2 rounded-full transition-colors">account_circle</button>
+<button class="material-symbols-outlined text-slate-500 hover:bg-blue-50/50 p-2 rounded-full transition-colors">settings</button>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="h-screen w-72 fixed left-0 top-0 z-40 bg-slate-50 dark:bg-slate-950 flex flex-col p-6 gap-y-4 hidden lg:flex pt-24 bg-slate-100/50 dark:bg-slate-900/50">
+<div class="flex flex-col items-center mb-8 px-4 py-6 bg-surface-container-lowest rounded-xl shadow-sm">
+<div class="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-primary text-3xl">person</span>
+</div>
+<h3 class="font-headline font-bold text-on-surface">The Scholar</h3>
+<p class="text-xs text-slate-500 font-medium">TOEIC Level: Advanced</p>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-4 px-6 py-4 text-slate-600 dark:text-slate-400 hover:text-blue-600 hover:translate-x-1 transition-transform ease-out-expo font-['Plus_Jakarta_Sans'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+                Study Hub
+            </a>
+<a class="flex items-center gap-4 px-6 py-4 bg-blue-600 text-white rounded-full shadow-lg shadow-blue-500/20 font-['Plus_Jakarta_Sans'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="quiz">quiz</span>
+                Quiz Center
+            </a>
+<a class="flex items-center gap-4 px-6 py-4 text-slate-600 dark:text-slate-400 hover:text-blue-600 hover:translate-x-1 transition-transform ease-out-expo font-['Plus_Jakarta_Sans'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="bar_chart">bar_chart</span>
+                Mastery Stats
+            </a>
+<a class="flex items-center gap-4 px-6 py-4 text-slate-600 dark:text-slate-400 hover:text-blue-600 hover:translate-x-1 transition-transform ease-out-expo font-['Plus_Jakarta_Sans'] text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+                Profile Settings
+            </a>
+</nav>
+<div class="mt-auto">
+<button class="w-full py-4 bg-primary text-on-primary rounded-xl font-headline font-bold hover:scale-[1.02] transition-transform active:scale-95 shadow-lg shadow-primary/20">
+                Start Daily Session
+            </button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="lg:ml-72 pt-32 pb-20 px-6 lg:px-12 max-w-7xl mx-auto">
+<!-- Results Hero Section -->
+<section class="relative mb-16">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<!-- Score Circle -->
+<div class="lg:col-span-5 flex flex-col items-center">
+<div class="relative w-72 h-72 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-high" cx="144" cy="144" fill="transparent" r="130" stroke="currentColor" stroke-width="12"></circle>
+<circle class="text-primary rounded-full transition-all duration-1000" cx="144" cy="144" fill="transparent" r="130" stroke="currentColor" stroke-dasharray="816.8" stroke-dashoffset="163.36" stroke-width="12"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+<span class="text-7xl font-headline font-extrabold text-on-surface tracking-tighter">80%</span>
+<span class="text-sm font-label font-bold text-slate-500 uppercase tracking-widest mt-1">Excellent Effort</span>
+</div>
+</div>
+</div>
+<!-- Celebration & Quick Stats -->
+<div class="lg:col-span-7">
+<div class="flex items-center gap-3 text-primary mb-4">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">stars</span>
+<span class="font-headline font-bold text-lg">Quiz Complete!</span>
+</div>
+<h1 class="text-5xl lg:text-6xl font-headline font-extrabold text-on-surface mb-6 leading-tight">You're making incredible progress.</h1>
+<div class="grid grid-cols-2 gap-4 mt-8">
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-primary">check_circle</span>
+<span class="text-xs font-label font-bold text-slate-500 uppercase">Correct Answers</span>
+</div>
+<span class="text-3xl font-headline font-bold text-on-surface">8 / 10</span>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-tertiary">timer</span>
+<span class="text-xs font-label font-bold text-slate-500 uppercase">Time Elapsed</span>
+</div>
+<span class="text-3xl font-headline font-bold text-on-surface">5:20</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Breakdown Section -->
+<section class="mb-16">
+<h2 class="text-2xl font-headline font-bold text-on-surface mb-8">Performance Breakdown</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Mastery Card -->
+<div class="md:col-span-2 bg-white rounded-xl p-8 shadow-sm border border-outline-variant/10 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-6">
+<div>
+<h3 class="text-xl font-headline font-bold text-on-surface">Listening Comprehension</h3>
+<p class="text-slate-500 text-sm mt-1">Strong performance in photographic analysis.</p>
+</div>
+<span class="bg-primary-fixed text-on-primary-fixed px-3 py-1 rounded-full text-xs font-bold">MASTERED</span>
+</div>
+<div class="space-y-6">
+<div>
+<div class="flex justify-between text-sm font-bold mb-2">
+<span>Accuracy</span>
+<span>100%</span>
+</div>
+<div class="h-3 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-primary-container w-full rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-8 flex gap-4">
+<button class="text-primary font-headline font-bold text-sm flex items-center gap-2 hover:translate-x-1 transition-transform">
+                            Review Questions <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Needs Review Card -->
+<div class="bg-tertiary-fixed/30 rounded-xl p-8 shadow-sm border border-tertiary-fixed/50">
+<span class="material-symbols-outlined text-tertiary text-4xl mb-4">analytics</span>
+<h3 class="text-xl font-headline font-bold text-on-surface mb-2">Grammar &amp; Syntax</h3>
+<p class="text-on-surface-variant text-sm mb-6">You missed 2 questions related to complex prepositions.</p>
+<div class="h-2 w-full bg-white/50 rounded-full overflow-hidden mb-8">
+<div class="h-full bg-tertiary w-[60%] rounded-full"></div>
+</div>
+<button class="w-full py-3 bg-tertiary text-on-tertiary rounded-lg font-bold text-sm hover:scale-[1.02] transition-transform">
+                        Practice Prepositions
+                    </button>
+</div>
+<!-- Vocabulary Mastery -->
+<div class="bg-surface-container-high rounded-xl p-8 flex flex-col items-center justify-center text-center">
+<span class="text-5xl font-headline font-black text-primary mb-2">+12</span>
+<span class="text-sm font-label font-bold text-slate-500 uppercase tracking-tighter">New Vocabulary Mastered</span>
+<div class="flex -space-x-2 mt-6">
+<div class="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm border-2 border-surface-container-high text-xs font-bold text-primary">A1</div>
+<div class="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm border-2 border-surface-container-high text-xs font-bold text-primary">B2</div>
+<div class="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm border-2 border-surface-container-high text-xs font-bold text-primary">C1</div>
+</div>
+</div>
+<!-- Next Goal -->
+<div class="md:col-span-2 bg-surface-container-lowest rounded-xl p-8 border border-outline-variant/10 flex flex-col md:flex-row gap-8 items-center">
+<div class="flex-1">
+<h3 class="text-xl font-headline font-bold text-on-surface mb-2">Road to 900+</h3>
+<p class="text-slate-500 text-sm">Consistent 80% scores indicate you're ready for Advanced Module 4: Business Nuance.</p>
+</div>
+<div class="h-16 w-16 md:h-24 md:w-24 bg-primary-fixed rounded-2xl flex items-center justify-center rotate-3">
+<span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Final Actions -->
+<section class="flex flex-col sm:flex-row gap-4 justify-center items-center py-10 border-t border-outline-variant/10">
+<button class="px-10 py-5 bg-surface-container-lowest text-primary border-2 border-primary rounded-full font-headline font-bold hover:bg-primary hover:text-white transition-all duration-300 ease-out-expo min-w-[240px]">
+                Retake Quiz
+            </button>
+<button class="px-10 py-5 bg-primary text-on-primary rounded-full font-headline font-bold shadow-xl shadow-primary/30 hover:scale-[1.03] active:scale-95 transition-all duration-300 ease-out-expo min-w-[240px]">
+                Back to Dashboard
+            </button>
+</section>
+</main>
+<!-- Bottom Nav for Mobile -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-lg border-t border-slate-100 flex justify-around p-4 z-50">
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="text-[10px] font-bold">Study</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">quiz</span>
+<span class="text-[10px] font-bold">Quiz</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="text-[10px] font-bold">Stats</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-400" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-bold">Profile</span>
+</a>
+</nav>
+</body></html>

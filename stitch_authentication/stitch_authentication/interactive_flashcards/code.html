@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Interactive Flashcards - The Adaptive Scholar</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#737686",
+                    "on-primary-container": "#edf0ff",
+                    "surface-dim": "#d8dadc",
+                    "inverse-surface": "#2d3133",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#e6e8ea",
+                    "background": "#f7f9fb",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#005236",
+                    "surface-bright": "#f7f9fb",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "outline-variant": "#c3c6d7",
+                    "primary": "#4d556a",
+                    "surface-container": "#eceef0",
+                    "secondary-container": "#2170e4",
+                    "on-background": "#191c1e",
+                    "inverse-on-surface": "#eff1f3",
+                    "error-container": "#ffdad6",
+                    "secondary": "#0058be",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "on-primary-fixed": "#131b2e",
+                    "tertiary-container": "#007d55",
+                    "on-surface": "#191c1e",
+                    "on-secondary-fixed": "#001a42",
+                    "surface-tint": "#565e74",
+                    "on-tertiary-container": "#bdffdb",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed": "#002113",
+                    "on-secondary-fixed-variant": "#004395",
+                    "secondary-fixed-dim": "#adc6ff",
+                    "tertiary-fixed-dim": "#4edea3",
+                    "primary-fixed": "#dae2fd",
+                    "surface": "#f7f9fb",
+                    "on-surface-variant": "#434655",
+                    "tertiary-fixed": "#6ffbbe",
+                    "inverse-primary": "#bec6e0",
+                    "surface-container-highest": "#e0e3e5",
+                    "primary-fixed-dim": "#bec6e0",
+                    "secondary-fixed": "#d8e2ff",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-low": "#f2f4f6",
+                    "tertiary": "#006242",
+                    "surface-variant": "#e0e3e5",
+                    "on-secondary-container": "#fefcff",
+                    "primary-container": "#656d84",
+                    "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Manrope"],
+                    "label": ["Plus Jakarta Sans"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-effect {
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-[0_40px_40px_-5px_rgba(25,28,30,0.06)] flex justify-between items-center px-6 h-16 w-full">
+<div class="flex items-center gap-3">
+<span class="text-xl font-bold text-slate-900 dark:text-slate-50 font-['Plus_Jakarta_Sans'] tracking-tight">The Adaptive Scholar</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center bg-surface-container-high rounded-full px-1 py-1 gap-1">
+<button class="px-3 py-1 text-xs font-label font-bold text-on-primary-fixed-variant bg-surface-container-lowest shadow-sm rounded-full">EN</button>
+<button class="px-3 py-1 text-xs font-label font-bold text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors rounded-full">VI</button>
+<button class="px-3 py-1 text-xs font-label font-bold text-on-surface-variant hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors rounded-full">JA</button>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors scale-95 active:duration-150">
+<span class="material-symbols-outlined" data-icon="language">language</span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-fixed">
+<img alt="User profile" data-alt="Portrait of a professional young man in a modern workspace, bright natural light, clean professional aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9gRyYqOSC3x7V9HnvUMkgXQVWjNgifcrwcKn9vK1udC1PFKHPh-octRUIccGJeCH46Jt-AMpVKdZb7aKgUwpakVABFQOp2feEzzGXejFI4DIjyqvGUACNEEZuODtrZM-CCiYE8GJNAn3iH0hgDD43rtQndGWwzJQxiIIICfolO2fbbFQ1v_JDs6cvnlMCuwQ2QfKh-fc1JJSOlev48skUYfoPj3kqksSnqbYSp7PxVD3cCWsJzp3m_STe8OuPKwmHfyWJ6D6wtb0"/>
+</div>
+</div>
+</header>
+<div class="flex pt-16 min-h-screen">
+<!-- SideNavBar (Hidden on Mobile) -->
+<aside class="hidden md:flex h-[calc(100vh-4rem)] w-64 bg-slate-50 dark:bg-slate-950 flex-col py-8 px-4 gap-2 fixed left-0 top-16">
+<div class="mb-8 px-4">
+<div class="text-lg font-extrabold text-blue-600 font-['Plus_Jakarta_Sans']">TOEIC Master</div>
+<div class="text-xs text-slate-500 font-medium">Global Edition</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-slate-900 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-300 ease-in-out font-['Plus_Jakarta_Sans'] font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                    Dashboard
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-slate-900 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-300 ease-in-out font-['Plus_Jakarta_Sans'] font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="category">category</span>
+                    Topics
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-sm rounded-xl font-['Plus_Jakarta_Sans'] font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
+                    Study Hub
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-slate-900 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-300 ease-in-out font-['Plus_Jakarta_Sans'] font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="quiz">quiz</span>
+                    Quiz Center
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:text-slate-900 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all duration-300 ease-in-out font-['Plus_Jakarta_Sans'] font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+                    Profile
+                </a>
+</nav>
+<div class="mt-auto border-t border-slate-200/50 pt-4 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:text-slate-900 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                    Settings
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 hover:text-slate-900 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                    Help
+                </a>
+</div>
+</aside>
+<!-- Main Content (Canvas) -->
+<main class="flex-1 md:ml-64 p-6 md:p-12 bg-surface">
+<!-- Header Section -->
+<div class="max-w-4xl mx-auto mb-12">
+<div class="flex items-center gap-4 mb-2">
+<span class="bg-secondary-fixed text-on-secondary-fixed text-[10px] font-bold px-2 py-0.5 rounded-full tracking-wider uppercase">Advanced Vocabulary</span>
+<span class="text-on-surface-variant text-sm font-medium">Unit 4: Business Relations</span>
+</div>
+<h1 class="text-4xl md:text-5xl font-extrabold font-headline text-on-surface tracking-tight mb-4">Interactive Flashcards</h1>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full w-2/3 transition-all duration-700"></div>
+</div>
+<div class="flex justify-between mt-2 text-xs font-bold text-on-surface-variant">
+<span>PROGRESS: 12/18 WORDS</span>
+<span>67% COMPLETE</span>
+</div>
+</div>
+<!-- Flashcard Section -->
+<div class="max-w-4xl mx-auto flex flex-col items-center gap-10">
+<!-- Main Flashcard -->
+<div class="w-full relative group cursor-pointer perspective-1000">
+<!-- The Asymmetric Background Glow -->
+<div class="absolute -top-6 -right-6 w-32 h-32 bg-secondary/10 rounded-full blur-3xl group-hover:bg-secondary/20 transition-all duration-500"></div>
+<!-- The Card Canvas -->
+<div class="relative bg-surface-container-lowest rounded-[2rem] p-12 md:p-20 shadow-[0_40px_80px_-15px_rgba(0,0,0,0.08)] flex flex-col items-center justify-center min-h-[450px] border border-outline-variant/10">
+<!-- Top Meta -->
+<div class="absolute top-8 left-12 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="volume_up">volume_up</span>
+<span class="text-on-surface-variant font-medium text-sm">Pronunciation: /əˈɡriːmənt/</span>
+</div>
+<div class="absolute top-8 right-12">
+<span class="material-symbols-outlined text-outline-variant hover:text-secondary transition-colors" data-icon="star">star</span>
+</div>
+<!-- Main Content -->
+<div class="text-center">
+<h2 class="text-6xl md:text-7xl font-extrabold font-headline text-on-surface tracking-tighter mb-6">Agreement</h2>
+<p class="text-lg text-on-surface-variant max-w-md mx-auto italic">"The two companies reached an agreement after lengthy negotiations."</p>
+</div>
+<!-- Flip Indicator -->
+<div class="absolute bottom-8 flex items-center gap-2 text-outline-variant font-bold text-[10px] tracking-widest uppercase group-hover:text-secondary transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="flip">flip</span>
+                            Tap to reveal definition
+                        </div>
+</div>
+</div>
+<!-- Language Toggle & Meanings -->
+<div class="w-full max-w-2xl flex flex-col gap-6">
+<!-- Segmented Control -->
+<div class="flex bg-surface-container-low p-1.5 rounded-2xl relative">
+<button class="flex-1 py-3 px-4 rounded-xl text-sm font-bold font-label text-on-surface-variant hover:bg-surface-container transition-all z-10">ENGLISH</button>
+<!-- Active State Implementation (VI is active for the context of this example) -->
+<button class="flex-1 py-3 px-4 rounded-xl text-sm font-bold font-label bg-surface-container-lowest shadow-sm text-secondary z-10 transition-all">VIETNAMESE</button>
+<button class="flex-1 py-3 px-4 rounded-xl text-sm font-bold font-label text-on-surface-variant hover:bg-surface-container transition-all z-10">JAPANESE</button>
+</div>
+<!-- Meaning Content Card -->
+<div class="bg-surface-container-low rounded-3xl p-8 relative overflow-hidden">
+<div class="flex items-start justify-between">
+<div>
+<div class="text-xs font-bold text-secondary uppercase tracking-[0.2em] mb-2">Meaning (VI)</div>
+<h3 class="text-3xl font-bold font-headline text-on-surface mb-4">Thỏa thuận</h3>
+<p class="text-on-surface-variant leading-relaxed">
+                                    Sự đồng ý của hai hay nhiều bên về một vấn đề cụ thể, thường được văn bản hóa dưới dạng hợp đồng.
+                                </p>
+</div>
+<div class="bg-surface-container-lowest/50 p-4 rounded-2xl">
+<span class="material-symbols-outlined text-secondary text-3xl" data-icon="translate">translate</span>
+</div>
+</div>
+<!-- Asymmetric Detail -->
+<div class="mt-6 flex flex-wrap gap-2">
+<span class="bg-surface-container-high text-on-surface-variant text-[11px] font-bold px-3 py-1 rounded-full">Danh từ</span>
+<span class="bg-surface-container-high text-on-surface-variant text-[11px] font-bold px-3 py-1 rounded-full">Hợp đồng</span>
+<span class="bg-surface-container-high text-on-surface-variant text-[11px] font-bold px-3 py-1 rounded-full">Cam kết</span>
+</div>
+</div>
+</div>
+<!-- Controls -->
+<div class="flex items-center gap-6 mt-4">
+<button class="w-14 h-14 flex items-center justify-center rounded-full bg-surface-container-high text-on-surface hover:bg-surface-container-highest transition-all">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<div class="flex items-center gap-3">
+<button class="h-14 px-8 rounded-full bg-error/10 text-error font-bold flex items-center gap-2 hover:bg-error/20 transition-all">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+                            Still Learning
+                        </button>
+<button class="h-14 px-8 rounded-full bg-tertiary/10 text-tertiary font-bold flex items-center gap-2 hover:bg-tertiary/20 transition-all border border-tertiary/20">
+<span class="material-symbols-outlined" data-icon="check" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check</span>
+                            Mastered
+                        </button>
+</div>
+<button class="w-14 h-14 flex items-center justify-center rounded-full bg-primary text-on-primary hover:bg-primary-container transition-all">
+<span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</main>
+</div>
+<!-- Mobile Bottom Navigation -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-xl h-20 px-6 flex justify-between items-center z-50">
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-blue-600" href="#">
+<span class="material-symbols-outlined" data-icon="auto_stories" data-weight="fill" style="font-variation-settings: 'FILL' 1;">auto_stories</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Study</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined" data-icon="quiz">quiz</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Tests</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Me</span>
+</a>
+</nav>
+<!-- Floating Action Button for Study Mode -->
+<div class="fixed bottom-24 right-6 md:bottom-12 md:right-12">
+<button class="w-16 h-16 bg-secondary text-white rounded-2xl shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-300">
+<span class="material-symbols-outlined text-3xl" data-icon="edit_note">edit_note</span>
+</button>
+</div>
+</body></html>

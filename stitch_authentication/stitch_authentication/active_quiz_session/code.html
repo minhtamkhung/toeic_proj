@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Quiz Experience - Cognitive Sanctuary</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-error": "#ffffff",
+              "tertiary-fixed": "#ffdcc6",
+              "surface-container-lowest": "#ffffff",
+              "on-primary-fixed": "#001a42",
+              "surface-tint": "#005ac2",
+              "primary-container": "#2170e4",
+              "on-tertiary-fixed": "#311400",
+              "on-secondary-container": "#405682",
+              "on-primary-container": "#fefcff",
+              "on-secondary-fixed": "#001a42",
+              "tertiary-fixed-dim": "#ffb786",
+              "surface-bright": "#f8f9fa",
+              "primary": "#0058be",
+              "on-primary": "#ffffff",
+              "background": "#f8f9fa",
+              "surface-container-low": "#f3f4f5",
+              "inverse-on-surface": "#f0f1f2",
+              "tertiary-container": "#b75b00",
+              "on-error-container": "#93000a",
+              "outline-variant": "#c2c6d6",
+              "secondary-container": "#b6ccff",
+              "secondary": "#495e8a",
+              "primary-fixed": "#d8e2ff",
+              "surface-variant": "#e1e3e4",
+              "secondary-fixed": "#d8e2ff",
+              "inverse-surface": "#2e3132",
+              "surface": "#f8f9fa",
+              "primary-fixed-dim": "#adc6ff",
+              "on-primary-fixed-variant": "#004395",
+              "inverse-primary": "#adc6ff",
+              "error-container": "#ffdad6",
+              "outline": "#727785",
+              "on-tertiary-container": "#fffbff",
+              "on-tertiary": "#ffffff",
+              "on-surface-variant": "#424754",
+              "surface-container-highest": "#e1e3e4",
+              "surface-dim": "#d9dadb",
+              "on-secondary-fixed-variant": "#304671",
+              "error": "#ba1a1a",
+              "on-background": "#191c1d",
+              "on-tertiary-fixed-variant": "#723600",
+              "surface-container": "#edeeef",
+              "secondary-fixed-dim": "#b1c6f9",
+              "on-secondary": "#ffffff",
+              "tertiary": "#924700",
+              "on-surface": "#191c1d",
+              "surface-container-high": "#e7e8e9"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .ease-out-expo {
+        transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      h1, h2, h3, .brand-text {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+      }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl flex justify-between items-center px-6 h-20 w-full shadow-sm shadow-blue-500/5">
+<div class="flex items-center gap-4">
+<span class="text-2xl font-bold tracking-tighter text-blue-700">Cognitive Sanctuary</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex items-center gap-8 mr-8">
+<span class="text-blue-700 font-bold font-['Plus_Jakarta_Sans'] text-sm tracking-tight cursor-pointer">Study Hub</span>
+<span class="text-slate-500 font-medium font-['Plus_Jakarta_Sans'] text-sm tracking-tight hover:bg-blue-50/50 transition-colors cursor-pointer px-3 py-1 rounded-full">Quiz Center</span>
+<span class="text-slate-500 font-medium font-['Plus_Jakarta_Sans'] text-sm tracking-tight hover:bg-blue-50/50 transition-colors cursor-pointer px-3 py-1 rounded-full">Mastery Stats</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-2 text-slate-500 hover:bg-blue-50/50 transition-colors rounded-full ease-out-expo active:scale-95">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-blue-50/50 transition-colors rounded-full ease-out-expo active:scale-95">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="h-screen w-72 fixed left-0 top-0 z-40 bg-slate-50 flex flex-col p-6 gap-y-4 pt-24 hidden md:flex">
+<div class="flex flex-col gap-1 mb-6 px-4">
+<h2 class="text-lg font-bold text-on-surface font-headline tracking-tight">The Scholar</h2>
+<p class="text-xs text-slate-500 font-medium">TOEIC Level: Advanced</p>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-4 px-6 py-4 text-slate-600 hover:text-blue-600 hover:translate-x-1 transition-transform ease-out-expo text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span>Study Hub</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 bg-blue-600 text-white rounded-full shadow-lg shadow-blue-500/20 text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="quiz">quiz</span>
+<span>Quiz Center</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 text-slate-600 hover:text-blue-600 hover:translate-x-1 transition-transform ease-out-expo text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="bar_chart">bar_chart</span>
+<span>Mastery Stats</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 text-slate-600 hover:text-blue-600 hover:translate-x-1 transition-transform ease-out-expo text-sm font-medium" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span>Profile Settings</span>
+</a>
+</nav>
+<div class="mt-auto">
+<button class="w-full bg-primary text-on-primary py-4 px-6 rounded-md font-bold text-sm shadow-lg shadow-blue-500/10 hover:shadow-xl transition-all ease-out-expo active:scale-95">
+                Start Daily Session
+            </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-72 pt-28 px-6 pb-12 min-h-screen">
+<div class="max-w-4xl mx-auto">
+<!-- Quiz Header (Status Bar) -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
+<div class="flex-1">
+<div class="flex justify-between items-end mb-3">
+<span class="text-sm font-bold text-primary font-headline tracking-wide uppercase">Question 4 of 10</span>
+<span class="text-sm font-medium text-slate-500">40% Completed</span>
+</div>
+<div class="h-2 w-full bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-primary-container rounded-full w-[40%] transition-all duration-700"></div>
+</div>
+</div>
+<div class="flex gap-4">
+<!-- Timer Card -->
+<div class="flex items-center gap-3 bg-surface-container-high px-5 py-3 rounded-lg">
+<span class="material-symbols-outlined text-tertiary" data-icon="timer">timer</span>
+<div class="flex flex-col">
+<span class="text-[10px] uppercase font-bold tracking-widest text-slate-500">Remaining</span>
+<span class="text-sm font-bold tabular-nums">14:52</span>
+</div>
+</div>
+<!-- Score Card -->
+<div class="flex items-center gap-3 bg-primary-fixed px-5 py-3 rounded-lg">
+<span class="material-symbols-outlined text-primary" data-icon="stars">stars</span>
+<div class="flex flex-col">
+<span class="text-[10px] uppercase font-bold tracking-widest text-on-primary-fixed-variant">Score</span>
+<span class="text-sm font-bold tabular-nums text-on-primary-fixed">320 pts</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Quiz Content (Focus Area) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Main Question Card -->
+<div class="lg:col-span-12">
+<div class="bg-surface-container-lowest rounded-xl p-10 md:p-16 shadow-sm border-0 relative overflow-hidden">
+<!-- Decorative element -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 blur-3xl"></div>
+<div class="relative z-10 flex flex-col items-center text-center">
+<span class="px-4 py-1.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed-variant text-[10px] font-bold uppercase tracking-widest mb-8">Vocabulary Focus</span>
+<h1 class="text-3xl md:text-5xl font-extrabold text-on-surface font-headline leading-tight tracking-tight max-w-2xl mb-6">
+                                The management decided to <span class="text-primary italic">implement</span> new safety protocols after the audit.
+                            </h1>
+<p class="text-slate-500 text-lg font-medium">Which word is the closest synonym for "implement"?</p>
+</div>
+</div>
+</div>
+<!-- Answer Grid -->
+<div class="lg:col-span-12 grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Option A -->
+<button class="group flex items-center justify-between p-6 bg-surface-container-lowest hover:bg-blue-50 rounded-lg border-2 border-transparent hover:border-primary/20 transition-all duration-300 text-left active:scale-[0.98]">
+<div class="flex items-center gap-5">
+<div class="w-10 h-10 rounded-full bg-surface-container-high group-hover:bg-primary-fixed flex items-center justify-center font-bold text-on-surface-variant group-hover:text-primary transition-colors">A</div>
+<span class="text-lg font-semibold text-on-surface">Postpone</span>
+</div>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 text-primary transition-opacity" data-icon="chevron_right">chevron_right</span>
+</button>
+<!-- Option B -->
+<button class="group flex items-center justify-between p-6 bg-surface-container-lowest hover:bg-blue-50 rounded-lg border-2 border-transparent hover:border-primary/20 transition-all duration-300 text-left active:scale-[0.98]">
+<div class="flex items-center gap-5">
+<div class="w-10 h-10 rounded-full bg-surface-container-high group-hover:bg-primary-fixed flex items-center justify-center font-bold text-on-surface-variant group-hover:text-primary transition-colors">B</div>
+<span class="text-lg font-semibold text-on-surface">Execute</span>
+</div>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 text-primary transition-opacity" data-icon="chevron_right">chevron_right</span>
+</button>
+<!-- Option C -->
+<button class="group flex items-center justify-between p-6 bg-surface-container-lowest hover:bg-blue-50 rounded-lg border-2 border-transparent hover:border-primary/20 transition-all duration-300 text-left active:scale-[0.98]">
+<div class="flex items-center gap-5">
+<div class="w-10 h-10 rounded-full bg-surface-container-high group-hover:bg-primary-fixed flex items-center justify-center font-bold text-on-surface-variant group-hover:text-primary transition-colors">C</div>
+<span class="text-lg font-semibold text-on-surface">Discuss</span>
+</div>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 text-primary transition-opacity" data-icon="chevron_right">chevron_right</span>
+</button>
+<!-- Option D -->
+<button class="group flex items-center justify-between p-6 bg-surface-container-lowest hover:bg-blue-50 rounded-lg border-2 border-transparent hover:border-primary/20 transition-all duration-300 text-left active:scale-[0.98]">
+<div class="flex items-center gap-5">
+<div class="w-10 h-10 rounded-full bg-surface-container-high group-hover:bg-primary-fixed flex items-center justify-center font-bold text-on-surface-variant group-hover:text-primary transition-colors">D</div>
+<span class="text-lg font-semibold text-on-surface">Evaluate</span>
+</div>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 text-primary transition-opacity" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Context & Footer -->
+<div class="mt-12 flex flex-col md:flex-row items-center justify-between gap-6 border-t border-surface-variant pt-8">
+<div class="flex items-center gap-6">
+<button class="flex items-center gap-2 text-slate-500 hover:text-primary font-bold text-sm transition-colors group">
+<span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
+<span>Flag for review</span>
+</button>
+<button class="flex items-center gap-2 text-slate-500 hover:text-primary font-bold text-sm transition-colors group">
+<span class="material-symbols-outlined" data-icon="lightbulb">lightbulb</span>
+<span>Show hint</span>
+</button>
+</div>
+<div class="flex items-center gap-4 w-full md:w-auto">
+<button class="flex-1 md:flex-none px-8 py-4 rounded-md font-bold text-sm text-slate-600 hover:bg-surface-container-high transition-all active:scale-95">
+                        Previous
+                    </button>
+<button class="flex-1 md:flex-none px-12 py-4 bg-primary text-on-primary rounded-md font-bold text-sm shadow-xl shadow-blue-500/20 hover:bg-blue-700 transition-all active:scale-95">
+                        Submit Answer
+                    </button>
+</div>
+</div>
+<!-- Bento Contextual Widgets -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
+<div class="md:col-span-2 bg-surface-container-low p-8 rounded-lg">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary" data-icon="auto_awesome">auto_awesome</span>
+<h3 class="font-headline font-bold text-on-surface">Contextual Insight</h3>
+</div>
+<p class="text-slate-600 leading-relaxed text-sm">
+                        In business English, <span class="font-bold text-on-surface">implement</span> is frequently used with nouns like <i>policy, strategy, changes,</i> or <i>recommendations</i>. It implies putting a plan into action.
+                    </p>
+</div>
+<div class="bg-surface-container-high p-8 rounded-lg flex flex-col justify-center text-center">
+<span class="text-3xl font-bold text-primary mb-1">92%</span>
+<span class="text-[10px] uppercase font-bold tracking-widest text-slate-500 mb-4">Community Accuracy</span>
+<div class="flex justify-center -space-x-3 overflow-hidden">
+<img alt="User profile" class="inline-block h-8 w-8 rounded-full ring-2 ring-surface-container-high" data-alt="Female user portrait for social proof" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeYcKt3yiARsaYSEYANBsll6G-Nl3rxDopq98YMy8GXREaS4spF7r3W8bb5KTkHnhBTyFSQj4mKlXTjghGFQJdG9MU3ipMWXYKjSCe0XfzsJmyjtv-73nRGR-Yi5LA-S2Btr0M4gUNvlmsaAa9Is7J8x3a-fYe58UcxtLSuP8QWgIiuAGyTD5uK50Z42aQ5BnChbFT8_-PJquysjTd3pzirgJza9ELvD7sf0d42FME6_aoSUCJl5GK1xEfo8k6XDfHr4WNEyEHtN0"/>
+<img alt="User profile" class="inline-block h-8 w-8 rounded-full ring-2 ring-surface-container-high" data-alt="Male user portrait for social proof" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOBpHpZDXTPitXA0KdNGv5hzgREy5aMp657OwtolIIsbGhXqKYHm7tpAqV0y-eJbIl6atS0wcYa3J6uDW9aFtt6ICuvEqTiSOlazu4z1mpY-W-LLkEf_35rcsW2ga_GpK2DNd2JljHT-W39Vss_VVkx14-kefxWTkbdKBqckyWRJYeXibCTtJhrbwKa1O5MPxZdxT5KR5hWv-n5la_ySU2nSHb36BJ2jYvymdiWmhfgmGPYn3OlVlTiU8B0bQcXrllhFv1bZGheGA"/>
+<img alt="User profile" class="inline-block h-8 w-8 rounded-full ring-2 ring-surface-container-high" data-alt="Professional man avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp1y_ePak9fHLL9HXaXDFZwPepU_tMd1VH1JvOR2SZEeaBE8Tl17mq5CyLA2NvCBEjoDAt0N3rdajsFO8oGDfIIG7OcM8qXVIX2IJ8GtUbz_UagALmLx20-4KxJP1lnYQi5LfbFpviPqMJbraXvbPeVIdfHn00Gzrza2axmIApDaDbRjBg5ARqWQpiuCRmCq5uLqU83QjJFll7BMv5yfhyJnedlAnI09myEqBqrTScPI7sQvs-D921E2rYuazhupMQMuttmnoTS-I"/>
+<div class="flex items-center justify-center h-8 w-8 rounded-full ring-2 ring-surface-container-high bg-slate-300 text-[10px] font-bold">+12k</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation for Mobile -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-white/80 backdrop-blur-xl flex justify-around items-center h-16 z-50 shadow-[0_-4px_20px_-5px_rgba(0,0,0,0.05)]">
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span class="text-[10px] font-medium">Study</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" data-icon="quiz" style="font-variation-settings: 'FILL' 1;">quiz</span>
+<span class="text-[10px] font-bold">Quiz</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined" data-icon="bar_chart">bar_chart</span>
+<span class="text-[10px] font-medium">Stats</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="text-[10px] font-medium">Profile</span>
+</button>
+</nav>
+</body></html>

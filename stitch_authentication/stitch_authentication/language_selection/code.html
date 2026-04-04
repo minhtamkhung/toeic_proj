@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Adaptive Scholar - Language Selection</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Plus Jakarta Sans & Manrope -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#737686",
+                    "on-primary-container": "#edf0ff",
+                    "surface-dim": "#d8dadc",
+                    "inverse-surface": "#2d3133",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-high": "#e6e8ea",
+                    "background": "#f7f9fb",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#005236",
+                    "surface-bright": "#f7f9fb",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "outline-variant": "#c3c6d7",
+                    "primary": "#4d556a",
+                    "surface-container": "#eceef0",
+                    "secondary-container": "#2170e4",
+                    "on-background": "#191c1e",
+                    "inverse-on-surface": "#eff1f3",
+                    "error-container": "#ffdad6",
+                    "secondary": "#0058be",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "on-primary-fixed": "#131b2e",
+                    "tertiary-container": "#007d55",
+                    "on-surface": "#191c1e",
+                    "on-secondary-fixed": "#001a42",
+                    "surface-tint": "#565e74",
+                    "on-tertiary-container": "#bdffdb",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed": "#002113",
+                    "on-secondary-fixed-variant": "#004395",
+                    "secondary-fixed-dim": "#adc6ff",
+                    "tertiary-fixed-dim": "#4edea3",
+                    "primary-fixed": "#dae2fd",
+                    "surface": "#f7f9fb",
+                    "on-surface-variant": "#434655",
+                    "tertiary-fixed": "#6ffbbe",
+                    "inverse-primary": "#bec6e0",
+                    "surface-container-highest": "#e0e3e5",
+                    "primary-fixed-dim": "#bec6e0",
+                    "secondary-fixed": "#d8e2ff",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-low": "#f2f4f6",
+                    "tertiary": "#006242",
+                    "surface-variant": "#e0e3e5",
+                    "on-secondary-container": "#fefcff",
+                    "primary-container": "#656d84",
+                    "error": "#ba1a1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Plus Jakarta Sans"],
+                    "body": ["Manrope"],
+                    "label": ["Plus Jakarta Sans"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-switcher {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(24px);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- Top Navigation (Shell Implementation) -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl flex justify-between items-center px-6 h-16 w-full shadow-[0_40px_40px_-5px_rgba(25,28,30,0.06)]">
+<div class="flex items-center gap-2">
+<span class="text-xl font-bold text-slate-900 dark:text-slate-50 font-['Plus_Jakarta_Sans'] tracking-tight">The Adaptive Scholar</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-surface-container-high hover:bg-slate-100 transition-colors scale-95 active:duration-150">
+<span class="material-symbols-outlined text-lg" data-icon="language">language</span>
+<span class="text-sm font-bold font-['Plus_Jakarta_Sans'] tracking-tight">EN</span>
+</button>
+</div>
+</header>
+<main class="min-h-screen pt-24 pb-12 flex flex-col items-center justify-center relative overflow-hidden">
+<!-- Abstract Background Texture -->
+<div class="absolute inset-0 z-0 opacity-40 pointer-events-none">
+<div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-gradient-to-br from-primary-fixed to-transparent blur-3xl"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-gradient-to-tl from-secondary-fixed to-transparent blur-3xl"></div>
+</div>
+<div class="container max-w-5xl mx-auto px-6 relative z-10">
+<!-- Header Section -->
+<div class="text-center mb-16 space-y-4">
+<h1 class="text-5xl font-extrabold font-headline tracking-tighter text-on-surface">Language Selection</h1>
+<p class="text-on-surface-variant text-lg max-w-md mx-auto">Choose your target language to customize your professional TOEIC learning experience.</p>
+</div>
+<!-- Bento Grid Language Choice -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+<!-- English Card -->
+<div class="group relative bg-surface-container-lowest rounded-xl p-8 flex flex-col items-center justify-between transition-all duration-300 hover:translate-y-[-4px] hover:shadow-[0_20px_40px_rgba(0,88,190,0.1)] border-2 border-transparent hover:border-secondary-fixed">
+<div class="w-16 h-16 rounded-full overflow-hidden shadow-lg mb-6 outline outline-offset-4 outline-outline-variant/15">
+<img alt="English Flag" class="w-full h-full object-cover" data-alt="close-up of the United Kingdom union jack flag with vibrant colors and rich textile texture under bright light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSev_Bz9A-TlEgc5q3d9ochZclYpKI4WsZDRmqHtNP95iEXw7_4s3GKeJZ24iDINLpRUZKtL_SHN6nhrfkugT1OItunKL8be9M3Lsl-SJhMs6XR_4eUs14AO5GYag5db2rsOV0azAxV5EAeD4hMCgHhsQjANfZ5iiKVTc9ZKQ6vkDDPx_MaNJ0Gqcp-5Avz5v2cYl6upXk4wTqnZo8vARNQo0CTjYaHBo6_LviOJDWf8Vkumw9TE0NA55IFSAGej52Fug-J834R0g"/>
+</div>
+<div class="text-center mb-6">
+<h3 class="text-xl font-bold font-headline mb-1">English</h3>
+<div class="inline-flex px-3 py-1 bg-surface-container rounded-full text-[10px] font-bold tracking-widest uppercase text-on-surface-variant">Global Edition</div>
+</div>
+<div class="w-full space-y-2">
+<div class="flex justify-between text-xs font-medium text-on-surface-variant px-1">
+<span>Level</span>
+<span class="text-secondary font-bold">Advanced</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-4/5 rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Vietnamese Card (Selected Active State Example) -->
+<div class="group relative bg-surface-container-lowest rounded-xl p-8 flex flex-col items-center justify-between border-2 border-secondary shadow-[0_20px_40px_rgba(0,88,190,0.12)]">
+<div class="absolute top-4 right-4">
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="w-16 h-16 rounded-full overflow-hidden shadow-lg mb-6 outline outline-offset-4 outline-secondary/20">
+<img alt="Vietnamese Flag" class="w-full h-full object-cover" data-alt="vibrant flag of Vietnam with a yellow star on a red background fluttering softly in gentle breeze" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCO20Ynl6Wr4oUzBdg5wM-m5-0Fo2DruFrECveSujwL0hGnLRIvmBtYrGg86q9lHlH0xPpYYHfZYMvlYUWysIMNDfop9ju2Hu69jTxmwkOSRAA-Z2YoFa7Wh05KgpFXBSC_8HNhKviqxX5iUtdX_GB0aELxVbQZw9HBd1Zt3VUqSqScrI24Q1tmgsmCMJBdi6qyYAePGMexTETCpnJFQa_asol-zwrPT13IkNQrLSyyz3lM4H7vbhMFuaW3H6HTlvsnQhk-TT_Th1A"/>
+</div>
+<div class="text-center mb-6">
+<h3 class="text-xl font-bold font-headline mb-1">Vietnamese</h3>
+<div class="inline-flex px-3 py-1 bg-secondary-fixed text-on-secondary-fixed rounded-full text-[10px] font-bold tracking-widest uppercase">Popular Choice</div>
+</div>
+<div class="w-full space-y-2">
+<div class="flex justify-between text-xs font-medium text-on-surface-variant px-1">
+<span>Level</span>
+<span class="text-secondary font-bold">Intermediate</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-3/5 rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Japanese Card -->
+<div class="group relative bg-surface-container-lowest rounded-xl p-8 flex flex-col items-center justify-between transition-all duration-300 hover:translate-y-[-4px] hover:shadow-[0_20px_40px_rgba(0,88,190,0.1)] border-2 border-transparent hover:border-secondary-fixed">
+<div class="w-16 h-16 rounded-full overflow-hidden shadow-lg mb-6 outline outline-offset-4 outline-outline-variant/15">
+<img alt="Japanese Flag" class="w-full h-full object-cover" data-alt="minimalist flag of Japan with a bold red sun circle centered on a clean white background with subtle fabric weave" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkWb1oi5HUw0hd4N8tLq-h_8VTaSfNkBjz46Wrdtnicah0aPiHGiqii8F5aF4DrpL45CUBee-gYIgD6GbWETTbg9aNZ0Dp7dcrgV1V39rI6vM94dHltQG9y0Bosay9NEO573_IJcuCyqHa73c2xCmREh9mD5MhXGlvhKlUYoNK8-wvU-upfuzmbnhBxSPwBnX1fyzp8IcaurMRik_buCt5ku_oQPsRUIk1WlVA2aT-YhEQmdjUM9G12fi_nV3Mp8MAxSCmxIsqUdU"/>
+</div>
+<div class="text-center mb-6">
+<h3 class="text-xl font-bold font-headline mb-1">Japanese</h3>
+<div class="inline-flex px-3 py-1 bg-surface-container rounded-full text-[10px] font-bold tracking-widest uppercase text-on-surface-variant">Regional</div>
+</div>
+<div class="w-full space-y-2">
+<div class="flex justify-between text-xs font-medium text-on-surface-variant px-1">
+<span>Level</span>
+<span class="text-secondary font-bold">Beginner</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-1/4 rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Korean Card -->
+<div class="group relative bg-surface-container-lowest rounded-xl p-8 flex flex-col items-center justify-between transition-all duration-300 hover:translate-y-[-4px] hover:shadow-[0_20px_40px_rgba(0,88,190,0.1)] border-2 border-transparent hover:border-secondary-fixed">
+<div class="w-16 h-16 rounded-full overflow-hidden shadow-lg mb-6 outline outline-offset-4 outline-outline-variant/15">
+<img alt="Korean Flag" class="w-full h-full object-cover" data-alt="dynamic South Korean flag with its central taegeuk symbol and black trigrams on a bright white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnt_aLMnPcLouVXwEVu98gMKotsHNxXg7-xMP408ju21DkykALvt_TFtUVTb3msOQFSmPJMdO8q4f8vrPNqekuvsO7_izsrR0A7HN0FcYozDLWq1phFYF_2B0Xg1ZVBNdfQaSPvV47RWk_28FiJXI8fetqfPEtxe5EYbGwmJiI4FaEpNwkP_Iq4yTQDpOdwjH_0E5Khm2p2l769qlmHZnLBuE32dyPBYWpvikCQt3FiI2x1p-R7ZbLm-It6QyZJ75BYdVRzwy4xuY"/>
+</div>
+<div class="text-center mb-6">
+<h3 class="text-xl font-bold font-headline mb-1">Korean</h3>
+<div class="inline-flex px-3 py-1 bg-surface-container rounded-full text-[10px] font-bold tracking-widest uppercase text-on-surface-variant">Regional</div>
+</div>
+<div class="w-full space-y-2">
+<div class="flex justify-between text-xs font-medium text-on-surface-variant px-1">
+<span>Level</span>
+<span class="text-secondary font-bold">New</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-1/12 rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Area -->
+<div class="flex flex-col items-center gap-8">
+<button class="group relative px-12 py-5 bg-gradient-to-r from-primary to-primary-container text-on-primary rounded-full font-headline font-bold text-lg shadow-xl hover:scale-[1.02] active:scale-95 transition-all duration-300 overflow-hidden">
+<span class="relative z-10 flex items-center gap-3">
+                        Let's Start
+                        <span class="material-symbols-outlined text-2xl group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</span>
+<div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+</button>
+<!-- Floating Bottom Tip -->
+<div class="flex items-center gap-3 px-5 py-3 bg-surface-container-low/60 backdrop-blur-md rounded-2xl border border-outline-variant/10">
+<span class="material-symbols-outlined text-secondary" data-icon="info">info</span>
+<p class="text-sm font-medium text-on-surface-variant">You can change your language later in the study hub settings.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Language Selector Visual Detail -->
+<div class="fixed bottom-10 right-10 hidden lg:flex items-center gap-1 p-1 bg-surface-container-high rounded-full shadow-lg z-50">
+<div class="px-4 py-2 bg-surface-container-lowest rounded-full shadow-sm">
+<span class="text-xs font-bold tracking-widest text-on-surface">EN</span>
+</div>
+<div class="px-4 py-2 rounded-full hover:bg-surface-container-highest transition-colors cursor-pointer">
+<span class="text-xs font-bold tracking-widest text-on-surface-variant">VN</span>
+</div>
+<div class="px-4 py-2 rounded-full hover:bg-surface-container-highest transition-colors cursor-pointer">
+<span class="text-xs font-bold tracking-widest text-on-surface-variant">JP</span>
+</div>
+<div class="px-4 py-2 rounded-full hover:bg-surface-container-highest transition-colors cursor-pointer">
+<span class="text-xs font-bold tracking-widest text-on-surface-variant">KR</span>
+</div>
+</div>
+</body></html>

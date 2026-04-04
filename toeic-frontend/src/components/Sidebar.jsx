@@ -1,18 +1,20 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import { useLanguage } from '../context/LanguageContext'
 
 const navItems = [
-    { path: '/home',       icon: 'dashboard',   label: 'Dashboard'  },
-    { path: '/topics',     icon: 'folder',      label: 'Topics'     },
-    { path: '/study',      icon: 'menu_book',   label: 'Study'      },
-    { path: '/quiz',       icon: 'quiz',        label: 'Quiz'       },
-    { path: '/profile',   icon: 'person',      label: 'Profile'    },
+    { path: '/home',    icon: 'dashboard',   label: 'Dashboard' },
+    { path: '/topics',  icon: 'folder',      label: 'Topics'    },
+    { path: '/study',   icon: 'menu_book',   label: 'Study'     },
+    { path: '/quiz',    icon: 'quiz',        label: 'Quiz'      },
+    { path: '/profile', icon: 'person',      label: 'Profile'   },
 ]
 
 export default function Sidebar() {
-    const { user, logout } = useAuth()
-    const location         = useLocation()
-    const navigate         = useNavigate()
+    const { user, logout }            = useAuth()
+    const { locale, setLocale, locales } = useLanguage()
+    const location                    = useLocation()
+    const navigate                    = useNavigate()
 
     const handleLogout = async () => {
         await logout()
@@ -22,12 +24,12 @@ export default function Sidebar() {
     return (
         <aside className="h-screen w-64 fixed left-0 top-0 bg-surface-container-low flex flex-col py-6 gap-2 z-50">
             {/* Brand */}
-            <div className="px-6 mb-8">
+            <div className="px-6 mb-4">
                 <h1 className="text-xl font-bold text-primary font-headline tracking-tight">
                     TOEIC Sanctuary
                 </h1>
                 <p className="text-xs text-on-surface-variant font-medium tracking-widest uppercase mt-1">
-                    Fluent Path
+                    Adaptive Scholar
                 </p>
             </div>
 
@@ -40,15 +42,15 @@ export default function Sidebar() {
                             key={path}
                             to={path}
                             className={`flex items-center gap-3 px-4 py-3 rounded-full text-sm font-semibold font-headline tracking-tight transition-all duration-200 ease-out-expo
-                ${active
-                                ? 'bg-primary text-on-primary shadow-lg shadow-primary/20'
-                                : 'text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors'
-                            }`}
+                                ${active
+                                    ? 'bg-primary text-on-primary shadow-lg shadow-primary/20'
+                                    : 'text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors'
+                                }`}
                         >
-              <span className="material-symbols-outlined text-xl"
-                    style={{ fontVariationSettings: active ? "'FILL' 1" : "'FILL' 0" }}>
-                {icon}
-              </span>
+                            <span className="material-symbols-outlined text-xl"
+                                  style={{ fontVariationSettings: active ? "'FILL' 1" : "'FILL' 0" }}>
+                                {icon}
+                            </span>
                             {label}
                         </Link>
                     )

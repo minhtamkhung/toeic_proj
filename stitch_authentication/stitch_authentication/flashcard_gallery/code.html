@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TOEIC Sanctuary - Flashcards</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-variant": "#e1e3e4",
+              "on-surface": "#191c1d",
+              "secondary-fixed": "#d8e2ff",
+              "inverse-surface": "#2e3132",
+              "secondary": "#495e8a",
+              "on-background": "#191c1d",
+              "surface-tint": "#005ac2",
+              "surface": "#f8f9fa",
+              "error-container": "#ffdad6",
+              "on-error": "#ffffff",
+              "surface-dim": "#d9dadb",
+              "error": "#ba1a1a",
+              "on-tertiary-container": "#fffbff",
+              "tertiary-container": "#b75b00",
+              "on-tertiary-fixed-variant": "#723600",
+              "on-primary-fixed": "#001a42",
+              "on-tertiary": "#ffffff",
+              "background": "#f8f9fa",
+              "on-surface-variant": "#424754",
+              "inverse-on-surface": "#f0f1f2",
+              "secondary-container": "#b6ccff",
+              "tertiary-fixed": "#ffdcc6",
+              "tertiary-fixed-dim": "#ffb786",
+              "on-secondary": "#ffffff",
+              "on-primary-container": "#fefcff",
+              "surface-container-highest": "#e1e3e4",
+              "tertiary": "#924700",
+              "primary": "#0058be",
+              "on-error-container": "#93000a",
+              "primary-fixed": "#d8e2ff",
+              "secondary-fixed-dim": "#b1c6f9",
+              "outline-variant": "#c2c6d6",
+              "surface-container": "#edeeef",
+              "primary-container": "#2170e4",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-fixed": "#001a42",
+              "on-secondary-fixed-variant": "#304671",
+              "on-secondary-container": "#405682",
+              "outline": "#727785",
+              "inverse-primary": "#adc6ff",
+              "surface-bright": "#f8f9fa",
+              "on-primary-fixed-variant": "#004395",
+              "surface-container-low": "#f3f4f5",
+              "primary-fixed-dim": "#adc6ff",
+              "on-primary": "#ffffff",
+              "surface-container-high": "#e7e8e9",
+              "on-tertiary-fixed": "#311400"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .ease-out-expo {
+            transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface">
+<!-- SideNavBar (Authority Source: JSON) -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-none bg-slate-50 dark:bg-slate-900 flex flex-col py-6 gap-2 z-50">
+<div class="px-6 mb-8">
+<h1 class="text-xl font-bold text-blue-700 dark:text-blue-300 font-headline">TOEIC Sanctuary</h1>
+<p class="text-xs text-slate-500 font-semibold tracking-widest uppercase mt-1">Fluent Path</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 mx-2 rounded-full transition-all duration-200 flex items-center gap-3 font-semibold text-sm" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 mx-2 rounded-full transition-all duration-200 flex items-center gap-3 font-semibold text-sm" href="#">
+<span class="material-symbols-outlined">folder</span>
+                Topics
+            </a>
+<a class="bg-blue-600 dark:bg-blue-500 text-white rounded-full mx-2 px-4 py-3 flex items-center gap-3 shadow-lg shadow-blue-200/50 dark:shadow-none font-semibold text-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">style</span>
+                Flashcards
+            </a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 mx-2 rounded-full transition-all duration-200 flex items-center gap-3 font-semibold text-sm" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+                Study
+            </a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 mx-2 rounded-full transition-all duration-200 flex items-center gap-3 font-semibold text-sm" href="#">
+<span class="material-symbols-outlined">quiz</span>
+                Quiz
+            </a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 mx-2 rounded-full transition-all duration-200 flex items-center gap-3 font-semibold text-sm" href="#">
+<span class="material-symbols-outlined">person</span>
+                Profile
+            </a>
+</nav>
+<div class="px-4 mt-auto">
+<div class="bg-surface-container-high rounded-lg p-4 flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="User profile avatar smiling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCL0KbVq6sTtz_CD0ZgLn8fke4C49P3xnDkWRPd80ipvXpu5at3gbVH0KO_OobQTv4gVi_jaoJDjHeKXgezWHVcwe3xxxy8n2LE3mDXlzRegmSHiQsgQSN3RoINJg-ca5WuxfS4nV_F4FFnxwBavJTzMlO0K8EWjTz5fk9ChRYVJUs1ywU5jnkxx_Rb8GaqyAWBthA-QXrGjm5u5jizNB-O_XImfVVRpabIQdZCGsg45kgPRaJRE2cPloVXJpvIeq9xUM__8zgT5ZY"/>
+<div>
+<p class="text-sm font-bold">Alex Chen</p>
+<p class="text-xs text-on-surface-variant">Level 12 Scholar</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar (Authority Source: JSON) -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl flex items-center justify-between px-8">
+<div class="flex items-center gap-4">
+<nav class="flex text-sm font-medium items-center gap-2">
+<span class="text-slate-400">Topics</span>
+<span class="material-symbols-outlined text-xs text-slate-300">chevron_right</span>
+<span class="text-blue-600 font-bold">Business Basics</span>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+<input class="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 text-sm focus:ring-2 ring-primary/20 w-64 transition-all" placeholder="Search cards..." type="text"/>
+</div>
+<button class="hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full p-2 transition-all">
+<span class="material-symbols-outlined text-slate-600">notifications</span>
+</button>
+<button class="hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full p-2 transition-all">
+<span class="material-symbols-outlined text-slate-600">settings</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-24 pb-12 px-8 min-h-screen bg-surface">
+<!-- Header Section -->
+<div class="mb-12 flex justify-between items-end">
+<div>
+<h2 class="text-4xl font-extrabold font-headline tracking-tight text-on-surface mb-2">Business Basics</h2>
+<p class="text-on-surface-variant text-lg">Master essential vocabulary for corporate environments. <span class="text-primary font-semibold">12 cards remaining.</span></p>
+</div>
+<div class="flex gap-3">
+<button class="bg-surface-container-high hover:bg-surface-variant text-on-surface px-6 py-3 rounded-md font-semibold transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-lg">filter_list</span>
+                    Filter
+                </button>
+<button class="bg-primary hover:bg-primary-container text-on-primary px-6 py-3 rounded-md font-semibold transition-all flex items-center gap-2 shadow-md">
+<span class="material-symbols-outlined text-lg">add</span>
+                    New Card
+                </button>
+</div>
+</div>
+<!-- Bento Grid Flashcards -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+<!-- Hero Card (The one specified) -->
+<div class="group relative bg-surface-container-lowest rounded-xl p-8 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/5 border border-outline-variant/15 flex flex-col h-[480px]">
+<div class="flex justify-between items-start mb-6">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">Hard Word</span>
+<div class="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-error-container hover:text-error rounded-full transition-colors">
+<span class="material-symbols-outlined text-xl">delete</span>
+</button>
+<button class="p-2 hover:bg-primary-fixed hover:text-primary rounded-full transition-colors">
+<span class="material-symbols-outlined text-xl">edit</span>
+</button>
+</div>
+</div>
+<div class="flex-1 flex flex-col items-center justify-center text-center">
+<div class="w-full aspect-video rounded-xl overflow-hidden mb-6 bg-surface-container-low relative">
+<img class="w-full h-full object-cover opacity-80 mix-blend-multiply grayscale hover:grayscale-0 transition-all duration-700" data-alt="People sitting around a sleek boardroom table in discussion" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhySqLSzsss2Twn84j-n5EbokzMpOyD15dVi6n2Bg1Onc_wSs1Cg8OwLadXa5BaLctUIK3yzzKmHO-7XFFWH7C-q7ExP_O0-cyubXtpt7g4nNxRbYT_JOhOli7VT1H5ojhpt_8-xiWOaS_TOsEAskfGrHoBw32SJrYfryrOxatj760NRJf1_d7ZPObdtOTCuOwpxMXAk7wFlglLu80Rrq_e0JFLZ6J4dZxo63HsHw3cADkykfzkZSxxzEZsE_fCIoO6HWwr2-XmLw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/40 to-transparent"></div>
+</div>
+<h3 class="text-3xl font-bold font-headline text-on-surface mb-1">Negotiation</h3>
+<p class="text-primary font-medium font-body mb-4 italic">/nəˌɡoʊ.ʃiˈeɪ.ʃən/</p>
+<div class="space-y-4 text-center max-w-xs">
+<p class="text-on-surface-variant leading-relaxed">A discussion aimed at reaching an agreement.</p>
+<p class="text-sm text-slate-400 font-body px-4 italic">"The two parties finally reached a settlement after long negotiations."</p>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-outline-variant/10 flex justify-center">
+<button class="flex items-center gap-3 text-primary font-bold hover:gap-5 transition-all duration-300 group/flip">
+<span class="material-symbols-outlined text-2xl group-hover/flip:rotate-180 transition-transform duration-500">flip_camera_android</span>
+<span>FLIP CARD</span>
+</button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group relative bg-surface-container-lowest rounded-xl p-8 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/5 border border-outline-variant/15 flex flex-col h-[480px]">
+<div class="flex justify-between items-start mb-6">
+<span class="bg-secondary-fixed text-on-secondary-fixed text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">Common</span>
+<div class="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-error-container hover:text-error rounded-full transition-colors">
+<span class="material-symbols-outlined text-xl">delete</span>
+</button>
+<button class="p-2 hover:bg-primary-fixed hover:text-primary rounded-full transition-colors">
+<span class="material-symbols-outlined text-xl">edit</span>
+</button>
+</div>
+</div>
+<div class="flex-1 flex flex-col items-center justify-center text-center">
+<div class="w-full aspect-video rounded-xl overflow-hidden mb-6 bg-surface-container-low">
+<img class="w-full h-full object-cover opacity-80 mix-blend-multiply grayscale hover:grayscale-0 transition-all duration-700" data-alt="Laptop and paperwork on a clean desk with coffee" src="https://lh3.googleusercontent.com/aida-public/AB6AXuClrdOMKmZcZMa_zgTGPHyZD9yWi9DgUysDTyAwvU35FnFQhgf7VwmG8HuWO9l1NTNgma39LtPVABg3efJIczn8Z7-LA892Oj7BLtje7XU5iKDLOezvPBuOSWoHHHCs8L_gJwh0ccQhMm1f_zGxX1mICuqVTDGLOnUOhH45MWFCr8jD6daYHSq6tiw2N2Edr2czh2QVrbm3txskkAyrqhL6ANRE7giRSz4GZgKynrjgJGe7-qAmD1rcAoZ3Q6MFEHIXf7N7Mog2cag"/>
+</div>
+<h3 class="text-3xl font-bold font-headline text-on-surface mb-1">Agreement</h3>
+<p class="text-primary font-medium font-body mb-4 italic">/əˈɡriː.mənt/</p>
+<div class="space-y-4 text-center max-w-xs">
+<p class="text-on-surface-variant leading-relaxed">A negotiated and typically legally binding arrangement.</p>
+<p class="text-sm text-slate-400 font-body px-4 italic">"Please sign the agreement at the bottom of the page."</p>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-outline-variant/10 flex justify-center">
+<button class="flex items-center gap-3 text-primary font-bold hover:gap-5 transition-all duration-300 group/flip">
+<span class="material-symbols-outlined text-2xl group-hover/flip:rotate-180 transition-transform duration-500">flip_camera_android</span>
+<span>FLIP CARD</span>
+</button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group relative bg-surface-container-lowest rounded-xl p-8 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/5 border border-outline-variant/15 flex flex-col h-[480px]">
+<div class="flex justify-between items-start mb-6">
+<span class="bg-primary-fixed text-on-primary-fixed text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">Mastered</span>
+<div class="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-error-container hover:text-error rounded-full transition-colors">
+<span class="material-symbols-outlined text-xl">delete</span>
+</button>
+<button class="p-2 hover:bg-primary-fixed hover:text-primary rounded-full transition-colors">
+<span class="material-symbols-outlined text-xl">edit</span>
+</button>
+</div>
+</div>
+<div class="flex-1 flex flex-col items-center justify-center text-center">
+<div class="w-full aspect-video rounded-xl overflow-hidden mb-6 bg-surface-container-low">
+<img class="w-full h-full object-cover opacity-80 mix-blend-multiply grayscale hover:grayscale-0 transition-all duration-700" data-alt="Professional person shaking hands after a meeting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA57-qMoVVE2UcCiHw_bKg41HzMx0xLU5DjTYGGauOlP42k4rBywFryZhAW43O3JeUBdKUE6cfNuCx15vvEdCf5lXJ_VeZkz2otf88yF-25m9ko_V7oZu5blegIYD0__OlE3wUxlOsphJBhCU8OJfSjNMGqTyxMrtFQsNvWwPqmW6ocpI-YKMSTupDdOhw_OS8D5dGoWJS-KxrEVclYMK3YESFMGlJTKITnPBht8Ih7zwY-X98HHscR_ESGD077nHnCOd3K2XpVbv0"/>
+</div>
+<h3 class="text-3xl font-bold font-headline text-on-surface mb-1">Settlement</h3>
+<p class="text-primary font-medium font-body mb-4 italic">/ˈsetl.mənt/</p>
+<div class="space-y-4 text-center max-w-xs">
+<p class="text-on-surface-variant leading-relaxed">An official agreement intended to resolve a dispute.</p>
+<p class="text-sm text-slate-400 font-body px-4 italic">"The unions reached a settlement with the management."</p>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-outline-variant/10 flex justify-center">
+<button class="flex items-center gap-3 text-primary font-bold hover:gap-5 transition-all duration-300 group/flip">
+<span class="material-symbols-outlined text-2xl group-hover/flip:rotate-180 transition-transform duration-500">flip_camera_android</span>
+<span>FLIP CARD</span>
+</button>
+</div>
+</div>
+<!-- Stats Module (Asymmetric Bento Element) -->
+<div class="col-span-full xl:col-span-2 bg-surface-container-high rounded-xl p-8 flex flex-col md:flex-row items-center gap-10">
+<div class="flex-1 space-y-4">
+<h4 class="text-2xl font-bold font-headline">Topic Progress</h4>
+<p class="text-on-surface-variant">You're making great strides in <span class="text-primary font-bold">Business Basics</span>. You've mastered 65% of the required vocabulary for this level.</p>
+<div class="w-full h-4 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-primary-container w-[65%] rounded-full shadow-lg shadow-primary/20"></div>
+</div>
+<div class="flex justify-between text-xs font-bold uppercase tracking-tighter text-slate-500">
+<span>Beginner</span>
+<span>Intermediate</span>
+<span>Master</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 w-full md:w-auto">
+<div class="bg-surface-container-lowest p-6 rounded-lg text-center shadow-sm">
+<p class="text-3xl font-extrabold text-primary font-headline">24</p>
+<p class="text-[10px] font-bold uppercase text-slate-400">Total Cards</p>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-lg text-center shadow-sm">
+<p class="text-3xl font-extrabold text-tertiary font-headline">08</p>
+<p class="text-[10px] font-bold uppercase text-slate-400">Needs Review</p>
+</div>
+</div>
+</div>
+<!-- Quick Action Card -->
+<div class="group relative bg-primary-container rounded-xl p-8 transition-all duration-300 flex flex-col justify-center items-center text-on-primary-container h-full overflow-hidden">
+<div class="absolute -top-10 -right-10 w-40 h-40 bg-primary opacity-20 rounded-full blur-3xl"></div>
+<div class="absolute -bottom-10 -left-10 w-40 h-40 bg-surface-container-highest opacity-10 rounded-full blur-3xl"></div>
+<span class="material-symbols-outlined text-6xl mb-6" style="font-variation-settings: 'wght' 200;">play_circle</span>
+<h3 class="text-2xl font-bold font-headline mb-2">Smart Quiz</h3>
+<p class="text-center text-sm opacity-80 mb-8 max-w-[200px]">Let the AI pick 10 words based on your weak points.</p>
+<button class="bg-surface-container-lowest text-primary px-8 py-3 rounded-full font-bold shadow-xl transition-transform active:scale-95">
+                    Start Now
+                </button>
+</div>
+</div>
+</main>
+<!-- Floating Navigation for Mobile (Auth Logic: Pivot to BottomNavBar) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 h-20 bg-white/90 backdrop-blur-xl z-50 flex items-center justify-around px-6">
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-bold uppercase">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">folder</span>
+<span class="text-[10px] font-bold uppercase">Topics</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-blue-600">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">style</span>
+<span class="text-[10px] font-bold uppercase">Cards</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">quiz</span>
+<span class="text-[10px] font-bold uppercase">Quiz</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-400">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-bold uppercase">Me</span>
+</button>
+</nav>
+</body></html>

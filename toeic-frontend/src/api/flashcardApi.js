@@ -1,9 +1,15 @@
 import api from './axiosInstance'
 
 const flashcardApi = {
-    getAll:       (params)    => api.get('/flashcards', { params }),
-    getByTopic:   (topicId, params) => api.get('/flashcards', { params: { topicId, ...params } }),
-    getById:      (id)        => api.get(`/flashcards/${id}`),
+    getAll:       (locale = 'en', includeAllLocales = false, params = {}) =>
+        api.get('/flashcards', { params: { locale, includeAllLocales, ...params } }),
+
+    getByTopic:   (topicId, locale = 'en', includeAllLocales = false, params = {}) =>
+        api.get('/flashcards', { params: { topicId, locale, includeAllLocales, ...params } }),
+
+    getById:      (id, locale = 'en', includeAllLocales = false) =>
+        api.get(`/flashcards/${id}`, { params: { locale, includeAllLocales } }),
+
     create:       (data)      => api.post('/flashcards', data),
     update:       (id, data)  => api.put(`/flashcards/${id}`, data),
     delete:       (id)        => api.delete(`/flashcards/${id}`),

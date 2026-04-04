@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Study Mode - TOEIC Sanctuary</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-variant": "#e1e3e4",
+                        "on-surface": "#191c1d",
+                        "secondary-fixed": "#d8e2ff",
+                        "inverse-surface": "#2e3132",
+                        "secondary": "#495e8a",
+                        "on-background": "#191c1d",
+                        "surface-tint": "#005ac2",
+                        "surface": "#f8f9fa",
+                        "error-container": "#ffdad6",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#d9dadb",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#fffbff",
+                        "tertiary-container": "#b75b00",
+                        "on-tertiary-fixed-variant": "#723600",
+                        "on-primary-fixed": "#001a42",
+                        "on-tertiary": "#ffffff",
+                        "background": "#f8f9fa",
+                        "on-surface-variant": "#424754",
+                        "inverse-on-surface": "#f0f1f2",
+                        "secondary-container": "#b6ccff",
+                        "tertiary-fixed": "#ffdcc6",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#fefcff",
+                        "surface-container-highest": "#e1e3e4",
+                        "tertiary": "#924700",
+                        "primary": "#0058be",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#d8e2ff",
+                        "secondary-fixed-dim": "#b1c6f9",
+                        "outline-variant": "#c2c6d6",
+                        "surface-container": "#edeeef",
+                        "primary-container": "#2170e4",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#001a42",
+                        "on-secondary-fixed-variant": "#304671",
+                        "on-secondary-container": "#405682",
+                        "outline": "#727785",
+                        "inverse-primary": "#adc6ff",
+                        "surface-bright": "#f8f9fa",
+                        "on-primary-fixed-variant": "#004395",
+                        "surface-container-low": "#f3f4f5",
+                        "primary-fixed-dim": "#adc6ff",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#e7e8e9",
+                        "on-tertiary-fixed": "#311400"
+                    },
+                    fontFamily: {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .ease-out-expo {
+            transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-none bg-slate-50 dark:bg-slate-900 flex flex-col py-6 gap-2 z-50">
+<div class="px-6 mb-8">
+<h1 class="text-xl font-bold text-blue-700 dark:text-blue-300 font-headline">TOEIC Sanctuary</h1>
+<p class="text-xs text-slate-500 font-semibold tracking-widest uppercase mt-1">Fluent Path</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 mx-2 rounded-full transition-all duration-200 flex items-center gap-3 font-plus-jakarta-sans text-sm font-semibold tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 mx-2 rounded-full transition-all duration-200 flex items-center gap-3 font-plus-jakarta-sans text-sm font-semibold tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="folder">folder</span>
+<span>Topics</span>
+</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 mx-2 rounded-full transition-all duration-200 flex items-center gap-3 font-plus-jakarta-sans text-sm font-semibold tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="style">style</span>
+<span>Flashcards</span>
+</a>
+<a class="bg-blue-600 dark:bg-blue-500 text-white rounded-full mx-2 px-4 py-3 flex items-center gap-3 shadow-lg shadow-blue-200/50 dark:shadow-none font-plus-jakarta-sans text-sm font-semibold tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span>Study</span>
+</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 mx-2 rounded-full transition-all duration-200 flex items-center gap-3 font-plus-jakarta-sans text-sm font-semibold tracking-tight" href="#">
+<span class="material-symbols-outlined" data-icon="quiz">quiz</span>
+<span>Quiz</span>
+</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 mx-2 rounded-full transition-all duration-200 flex items-center gap-3 font-plus-jakarta-sans text-sm font-semibold tracking-tight mt-auto" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span>Profile</span>
+</a>
+</nav>
+</aside>
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-none">
+<div class="flex items-center justify-between px-8 max-w-7xl mx-auto h-full">
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center bg-surface-container-low rounded-full px-4 py-1.5 gap-2">
+<span class="material-symbols-outlined text-slate-400 text-sm" data-icon="search">search</span>
+<input class="bg-transparent border-none text-sm focus:ring-0 w-48 font-body" placeholder="Search expressions..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full p-2 transition-all duration-300">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+</button>
+<button class="hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full p-2 transition-all duration-300">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="settings">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden ml-2 ring-2 ring-primary-fixed">
+<img alt="User Profile" data-alt="Professional user portrait for profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4064tBgwhdupTGAqbq5Qiwtm8o7IBpzGy1Z3JpWVauYCys_OC4jo69fFtFTirYTqdprc2rjh5crZr1lvvECiC7Md63lMQU8DS43A87bJwvifcaDV8oGIJLLS8hZl0TR1DzBmRJEofW9lHhy3LvogLTExVq57eoGYK9zFE7_OjR5jHuA-c5UxurIhDG9Q8WkSTf650q73_sguaLSKUpl83lYdiHXhw-dxDu5F5CcSHAUGgaAoXrUOJyjBJAzYeWunHJt3n4wbRWew"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 pt-24 min-h-screen bg-surface flex flex-col items-center">
+<div class="max-w-4xl w-full px-8 pb-12 flex-1 flex flex-col items-center justify-center">
+<!-- Header Stats -->
+<div class="w-full mb-12 flex justify-between items-end">
+<div class="space-y-1">
+<p class="font-label text-xs uppercase tracking-widest text-slate-400 font-bold">Current Session</p>
+<h2 class="font-headline text-3xl font-extrabold text-on-surface tracking-tight">Business Idioms</h2>
+</div>
+<div class="text-right">
+<div class="flex items-center gap-2 mb-2">
+<span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed text-[10px] font-bold rounded-full uppercase tracking-tighter">Mastery Level: 3</span>
+<span class="text-sm font-bold text-primary">Card 15 of 42</span>
+</div>
+<div class="w-48 h-2 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-primary-container rounded-full" style="width: 35.7%"></div>
+</div>
+</div>
+</div>
+<!-- Focus Mode Flashcard (Back State) -->
+<div class="relative w-full max-w-2xl group perspective-1000">
+<div class="bg-surface-container-lowest rounded-xl shadow-[0_40px_80px_-20px_rgba(0,88,190,0.08)] p-12 flex flex-col items-center text-center transition-all duration-500 hover:scale-[1.02] border border-outline-variant/10">
+<!-- Term & Audio -->
+<div class="mb-10">
+<span class="text-sm font-bold text-primary mb-2 block tracking-widest uppercase">Term</span>
+<h3 class="font-headline text-5xl font-extrabold text-slate-900 mb-4">Leverage</h3>
+<div class="flex items-center justify-center gap-2 text-slate-400">
+<span class="font-body italic">/ˈlev.ər.ɪdʒ/</span>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-primary" data-icon="volume_up">volume_up</span>
+</button>
+</div>
+</div>
+<!-- Separator -->
+<div class="w-16 h-1 bg-surface-variant rounded-full mb-10"></div>
+<!-- Meaning & Examples -->
+<div class="w-full space-y-8">
+<div>
+<span class="text-sm font-bold text-tertiary mb-3 block tracking-widest uppercase">Meaning</span>
+<p class="font-body text-xl leading-relaxed text-on-surface-variant max-w-md mx-auto">
+                                To use something that you already have in order to achieve something new or better.
+                            </p>
+</div>
+<div class="bg-surface-container-low p-6 rounded-lg text-left">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="lightbulb">lightbulb</span>
+<span class="text-[10px] font-bold uppercase tracking-widest text-slate-500">Context Example</span>
+</div>
+<p class="font-body italic text-on-surface leading-relaxed">
+                                "We can <span class="text-primary font-bold not-italic">leverage</span> our existing distribution network to launch the new product line."
+                            </p>
+</div>
+</div>
+</div>
+<!-- Card Decorative Stack Elements -->
+<div class="absolute -bottom-4 left-4 right-4 h-4 bg-white/40 rounded-b-xl -z-10 blur-[1px]"></div>
+<div class="absolute -bottom-8 left-8 right-8 h-4 bg-white/20 rounded-b-xl -z-20 blur-[2px]"></div>
+</div>
+<!-- SM2 Controls -->
+<div class="mt-16 w-full max-w-2xl">
+<div class="grid grid-cols-4 gap-4">
+<!-- Again -->
+<button class="group flex flex-col items-center gap-2 p-4 rounded-lg bg-surface-container-high hover:bg-error-container transition-all duration-300 ease-out-expo scale-98 active:scale-95">
+<div class="w-12 h-12 flex items-center justify-center rounded-full bg-error/10 text-error group-hover:bg-error group-hover:text-white transition-colors duration-300">
+<span class="material-symbols-outlined" data-icon="replay">replay</span>
+</div>
+<div class="text-center">
+<p class="font-headline font-bold text-on-surface">Again</p>
+<p class="font-label text-[10px] text-error font-extrabold uppercase">&lt; 1 min</p>
+</div>
+</button>
+<!-- Hard -->
+<button class="group flex flex-col items-center gap-2 p-4 rounded-lg bg-surface-container-high hover:bg-tertiary-fixed transition-all duration-300 ease-out-expo scale-98 active:scale-95">
+<div class="w-12 h-12 flex items-center justify-center rounded-full bg-tertiary/10 text-tertiary group-hover:bg-tertiary group-hover:text-white transition-colors duration-300">
+<span class="material-symbols-outlined" data-icon="sentiment_neutral">sentiment_neutral</span>
+</div>
+<div class="text-center">
+<p class="font-headline font-bold text-on-surface">Hard</p>
+<p class="font-label text-[10px] text-tertiary font-extrabold uppercase">2 days</p>
+</div>
+</button>
+<!-- Good -->
+<button class="group flex flex-col items-center gap-2 p-4 rounded-lg bg-surface-container-high hover:bg-primary-fixed transition-all duration-300 ease-out-expo scale-98 active:scale-95">
+<div class="w-12 h-12 flex items-center justify-center rounded-full bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300">
+<span class="material-symbols-outlined" data-icon="sentiment_satisfied">sentiment_satisfied</span>
+</div>
+<div class="text-center">
+<p class="font-headline font-bold text-on-surface">Good</p>
+<p class="font-label text-[10px] text-primary font-extrabold uppercase">4 days</p>
+</div>
+</button>
+<!-- Easy -->
+<button class="group flex flex-col items-center gap-2 p-4 rounded-lg bg-surface-container-high hover:bg-secondary-container transition-all duration-300 ease-out-expo scale-98 active:scale-95">
+<div class="w-12 h-12 flex items-center justify-center rounded-full bg-secondary/10 text-secondary group-hover:bg-secondary group-hover:text-white transition-colors duration-300">
+<span class="material-symbols-outlined" data-icon="sentiment_very_satisfied">sentiment_very_satisfied</span>
+</div>
+<div class="text-center">
+<p class="font-headline font-bold text-on-surface">Easy</p>
+<p class="font-label text-[10px] text-secondary font-extrabold uppercase">7 days</p>
+</div>
+</button>
+</div>
+</div>
+<!-- Quick Actions -->
+<div class="fixed bottom-8 right-8 flex flex-col gap-3">
+<button class="w-14 h-14 bg-white shadow-xl rounded-full flex items-center justify-center text-slate-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</button>
+<button class="w-14 h-14 bg-white shadow-xl rounded-full flex items-center justify-center text-slate-400 hover:text-error transition-colors">
+<span class="material-symbols-outlined" data-icon="flag">flag</span>
+</button>
+</div>
+</div>
+</main>
+</body></html>

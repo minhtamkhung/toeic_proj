@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext'
 import userApi from '../api/userApi'
 import progressApi from '../api/progressApi'
 import quizApi from '../api/quizApi'
+import { useLanguage } from '../context/LanguageContext'
 
 export default function ProfilePage() {
     const { user, logout }            = useAuth()
@@ -14,6 +15,9 @@ export default function ProfilePage() {
     const [pwForm, setPwForm]         = useState({ oldPassword: '', newPassword: '' })
     const [saving, setSaving]         = useState(false)
     const [msg, setMsg]               = useState('')
+
+    // Lấy dữ liệu đa ngôn ngữ từ Context
+    const { locale, setLocale, locales } = useLanguage()
 
     useEffect(() => {
         // Load progress stats
@@ -63,7 +67,6 @@ export default function ProfilePage() {
         } finally { setSaving(false) }
     }
 
-    // SM-2 mastery breakdown
     const mastered  = progress.filter(p => p.status === 'MASTERED').length
     const reviewing = progress.filter(p => p.status === 'REVIEWING').length
     const learning  = progress.filter(p => p.status === 'LEARNING').length
@@ -81,7 +84,6 @@ export default function ProfilePage() {
                 </div>
 
                 <div className="relative px-8 flex flex-col md:flex-row items-end gap-6">
-                    {/* Avatar */}
                     <div className="relative">
                         <div className="w-32 h-32 rounded-xl border-4 border-surface bg-gradient-to-br from-primary to-primary-container shadow-xl flex items-center justify-center">
                             <span className="text-white text-5xl font-extrabold font-headline">{initials}</span>
@@ -98,21 +100,18 @@ export default function ProfilePage() {
                     <div className="pb-2">
                         <button onClick={() => { setEditMode(e => !e); setMsg('') }}
                                 className="px-6 py-3 bg-primary text-on-primary rounded-full font-headline font-bold text-sm flex items-center gap-2 shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all">
-              <span className="material-symbols-outlined text-sm">
-                {editMode ? 'close' : 'edit'}
-              </span>
+                            <span className="material-symbols-outlined text-sm">
+                                {editMode ? 'close' : 'edit'}
+                            </span>
                             {editMode ? 'Cancel' : 'Edit Profile'}
                         </button>
                     </div>
                 </div>
             </section>
 
-            {/* Feedback */}
             {msg && (
-                <div className={`mb-6 px-4 py-3 rounded-DEFAULT text-sm font-medium
-          ${msg.includes('Error') || msg.includes('error')
-                    ? 'bg-error-container text-error'
-                    : 'bg-primary-fixed text-primary'
+                <div className={`mb-6 px-4 py-3 rounded-DEFAULT text-sm font-medium ${
+                    msg.includes('Error') || msg.includes('error') ? 'bg-error-container text-error' : 'bg-primary-fixed text-primary'
                 }`}>
                     {msg}
                 </div>
@@ -129,14 +128,11 @@ export default function ProfilePage() {
                     <div key={label} className="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10 flex flex-col justify-between hover:-translate-y-1 transition-transform ease-out-expo duration-300">
                         <div className="flex justify-between items-start mb-4">
                             <div className={`p-3 rounded-xl ${iconBg}`}>
-                <span className="material-symbols-outlined"
-                      style={{ fontVariationSettings: iconFill ? "'FILL' 1" : "'FILL' 0" }}>
-                  {icon}
-                </span>
+                                <span className="material-symbols-outlined" style={{ fontVariationSettings: iconFill ? "'FILL' 1" : "'FILL' 0" }}>
+                                    {icon}
+                                </span>
                             </div>
-                            <span className="text-xs font-bold text-outline px-2 py-1 bg-surface-container rounded-full">
-                {badge}
-              </span>
+                            <span className="text-xs font-bold text-outline px-2 py-1 bg-surface-container rounded-full">{badge}</span>
                         </div>
                         <div>
                             <p className="text-outline text-sm font-medium">{label}</p>
@@ -146,10 +142,8 @@ export default function ProfilePage() {
                 ))}
             </div>
 
-            {/* Bottom grid */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-
-                {/* SM-2 Mastery breakdown */}
+                {/* Flashcard Mastery */}
                 <div className="lg:col-span-2 bg-surface-container-lowest rounded-xl p-8 shadow-sm border border-outline-variant/10">
                     <div className="flex items-center justify-between mb-8">
                         <h2 className="text-xl font-bold font-headline">Flashcard Mastery</h2>
@@ -157,10 +151,10 @@ export default function ProfilePage() {
                     </div>
                     <div className="space-y-6">
                         {[
-                            { label: 'Mastered',  value: mastered,  color: 'from-primary to-primary-container', textColor: 'text-primary',   bg: 'bg-primary-fixed' },
-                            { label: 'Reviewing', value: reviewing, color: 'from-secondary to-secondary-container', textColor: 'text-secondary', bg: 'bg-secondary-container' },
-                            { label: 'Learning',  value: learning,  color: 'from-tertiary to-tertiary-container', textColor: 'text-tertiary',  bg: 'bg-tertiary-fixed' },
-                        ].map(({ label, value, color, textColor, bg }) => (
+                            { label: 'Mastered',  value: mastered,  color: 'from-primary to-primary-container', textColor: 'text-primary' },
+                            { label: 'Reviewing', value: reviewing, color: 'from-secondary to-secondary-container', textColor: 'text-secondary' },
+                            { label: 'Learning',  value: learning,  color: 'from-tertiary to-tertiary-container', textColor: 'text-tertiary' },
+                        ].map(({ label, value, color, textColor }) => (
                             <div key={label}>
                                 <div className="flex justify-between mb-2">
                                     <span className="text-sm font-bold text-on-surface">{label}</span>
@@ -175,7 +169,7 @@ export default function ProfilePage() {
                     </div>
                 </div>
 
-                {/* Edit form / Change password */}
+                {/* Settings Column */}
                 <div className="space-y-6">
                     {/* Edit profile */}
                     <div className="bg-surface-container-lowest rounded-xl p-6 shadow-sm border border-outline-variant/10">
@@ -185,9 +179,7 @@ export default function ProfilePage() {
                         </h3>
                         <div className="space-y-4">
                             <div>
-                                <label className="text-xs font-bold text-outline uppercase tracking-wider block mb-1">
-                                    Username
-                                </label>
+                                <label className="text-xs font-bold text-outline uppercase tracking-wider block mb-1">Username</label>
                                 <input
                                     value={form.username}
                                     onChange={e => setForm({ ...form, username: e.target.value })}
@@ -201,6 +193,40 @@ export default function ProfilePage() {
                                     {saving ? 'Saving...' : 'Save Changes'}
                                 </button>
                             )}
+                        </div>
+                    </div>
+
+                    {/* NEW: App Language Switcher */}
+                    <div className="bg-surface-container-lowest rounded-xl p-6 shadow-sm border border-outline-variant/10">
+                        <h3 className="font-headline font-bold text-lg mb-4 flex items-center gap-2">
+                            <span className="material-symbols-outlined text-secondary">language</span>
+                            App Language
+                        </h3>
+                        <p className="text-xs text-on-surface-variant mb-4 font-medium">
+                            Chọn ngôn ngữ mẹ đẻ của bạn để tùy chỉnh nội dung học TOEIC.
+                        </p>
+                        <div className="grid grid-cols-2 gap-2">
+                            {locales.map((l) => (
+                                <button
+                                    key={l.code}
+                                    onClick={() => setLocale(l.code)}
+                                    className={`flex items-center justify-between px-4 py-3 rounded-xl border-2 transition-all text-left
+                                        ${locale === l.code
+                                        ? 'border-secondary bg-secondary/5 text-secondary shadow-sm'
+                                        : 'border-transparent bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high'
+                                    }`}
+                                >
+                                    <div className="flex flex-col items-start overflow-hidden">
+                                        <span className="text-xs font-bold uppercase tracking-wider">{l.labelShort || l.code}</span>
+                                        <span className="text-[10px] opacity-60 font-medium truncate w-full">{l.name}</span>
+                                    </div>
+                                    {locale === l.code && (
+                                        <span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: "'FILL' 1" }}>
+                                            check_circle
+                                        </span>
+                                    )}
+                                </button>
+                            ))}
                         </div>
                     </div>
 

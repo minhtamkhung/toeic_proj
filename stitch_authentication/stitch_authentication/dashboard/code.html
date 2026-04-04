@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TOEIC Sanctuary - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-variant": "#e1e3e4",
+              "on-surface": "#191c1d",
+              "secondary-fixed": "#d8e2ff",
+              "inverse-surface": "#2e3132",
+              "secondary": "#495e8a",
+              "on-background": "#191c1d",
+              "surface-tint": "#005ac2",
+              "surface": "#f8f9fa",
+              "error-container": "#ffdad6",
+              "on-error": "#ffffff",
+              "surface-dim": "#d9dadb",
+              "error": "#ba1a1a",
+              "on-tertiary-container": "#fffbff",
+              "tertiary-container": "#b75b00",
+              "on-tertiary-fixed-variant": "#723600",
+              "on-primary-fixed": "#001a42",
+              "on-tertiary": "#ffffff",
+              "background": "#f8f9fa",
+              "on-surface-variant": "#424754",
+              "inverse-on-surface": "#f0f1f2",
+              "secondary-container": "#b6ccff",
+              "tertiary-fixed": "#ffdcc6",
+              "tertiary-fixed-dim": "#ffb786",
+              "on-secondary": "#ffffff",
+              "on-primary-container": "#fefcff",
+              "surface-container-highest": "#e1e3e4",
+              "tertiary": "#924700",
+              "primary": "#0058be",
+              "on-error-container": "#93000a",
+              "primary-fixed": "#d8e2ff",
+              "secondary-fixed-dim": "#b1c6f9",
+              "outline-variant": "#c2c6d6",
+              "surface-container": "#edeeef",
+              "primary-container": "#2170e4",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-fixed": "#001a42",
+              "on-secondary-fixed-variant": "#304671",
+              "on-secondary-container": "#405682",
+              "outline": "#727785",
+              "inverse-primary": "#adc6ff",
+              "surface-bright": "#f8f9fa",
+              "on-primary-fixed-variant": "#004395",
+              "surface-container-low": "#f3f4f5",
+              "primary-fixed-dim": "#adc6ff",
+              "on-primary": "#ffffff",
+              "surface-container-high": "#e7e8e9",
+              "on-tertiary-fixed": "#311400"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .ease-out-expo {
+            transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<aside class="h-screen w-64 fixed left-0 top-0 border-none bg-slate-50 dark:bg-slate-900 flex flex-col py-6 gap-2 z-50">
+<div class="px-6 mb-8">
+<h1 class="text-xl font-bold text-blue-700 dark:text-blue-300 font-headline tracking-tight">TOEIC Sanctuary</h1>
+<p class="text-xs text-slate-500 font-medium tracking-widest uppercase mt-1">Fluent Path</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="bg-blue-600 dark:bg-blue-500 text-white rounded-full mx-2 px-4 py-3 flex items-center gap-3 shadow-lg shadow-blue-200/50 dark:shadow-none font-headline text-sm font-semibold tracking-tight transition-transform duration-200 ease-out-expo scale-98 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 mx-2 rounded-full transition-all duration-200 flex items-center gap-3 font-headline text-sm font-semibold tracking-tight hover:bg-slate-200 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined" data-icon="folder">folder</span>
+                Topics
+            </a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 mx-2 rounded-full transition-all duration-200 flex items-center gap-3 font-headline text-sm font-semibold tracking-tight hover:bg-slate-200 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined" data-icon="style">style</span>
+                Flashcards
+            </a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 mx-2 rounded-full transition-all duration-200 flex items-center gap-3 font-headline text-sm font-semibold tracking-tight hover:bg-slate-200 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+                Study
+            </a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 mx-2 rounded-full transition-all duration-200 flex items-center gap-3 font-headline text-sm font-semibold tracking-tight hover:bg-slate-200 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined" data-icon="quiz">quiz</span>
+                Quiz
+            </a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-300 px-4 py-3 mx-2 rounded-full transition-all duration-200 flex items-center gap-3 font-headline text-sm font-semibold tracking-tight hover:bg-slate-200 dark:hover:bg-slate-800" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+                Profile
+            </a>
+</nav>
+<div class="px-6 pt-6 mt-auto border-t border-slate-100 dark:border-slate-800">
+<div class="flex items-center gap-3 p-2 rounded-xl bg-slate-100 dark:bg-slate-800/50">
+<img alt="User Avatar" class="w-10 h-10 rounded-full" data-alt="A professional user profile picture in high definition" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6CjwtoZclqnWqhLyi7zn67SE07mONwcFI7BJbsg2BESFmAyC5B_T9gpOAgYQwftxHb0AB3jSkfbzj1SmlfISEI4EplZsRlUNP5pa3Yo77LSQul2cbi_QjDsrfnmbQZMgJfUVMgKXVD5ebKdJNdPa57ORLUtpz7eVVigcDrVOXJ0jcOYT1SJv2ALz02U0S8efS7YBaDlMkCpLCxEQWtm2zn0jkA6KuEjwxQ2-zRIRF-b1N_FA3QbEmErVmV5RaOAzThL5dX65h_Fw"/>
+<div class="overflow-hidden">
+<p class="text-sm font-bold truncate">Alex Richards</p>
+<p class="text-xs text-slate-500 truncate">Pro Learner</p>
+</div>
+</div>
+</div>
+</aside>
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 z-40 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl transition-all duration-300 ease-in-out">
+<div class="flex items-center justify-between px-8 max-w-7xl mx-auto h-full">
+<div class="flex items-center gap-4 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+<input class="w-full bg-slate-100 border-none rounded-full py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20 transition-all outline-none" placeholder="Search topics or words..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full p-2 transition-all">
+<span class="material-symbols-outlined text-slate-600" data-icon="notifications">notifications</span>
+</button>
+<button class="hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full p-2 transition-all">
+<span class="material-symbols-outlined text-slate-600" data-icon="settings">settings</span>
+</button>
+<div class="w-px h-6 bg-slate-200 mx-2"></div>
+<img alt="User Profile" class="w-8 h-8 rounded-full border border-slate-100 shadow-sm" data-alt="Small circular user profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDB_-Cj2nrnx-iA1nLqMweeSSdphHkfVno2FvjAn4DBs1EWf5Ow16c7jJOlpLDpPLPD-IlLR8scIh6w1SsZK2og3zam7Wk8cSSHOWWUXwZWoIO5i479oBtO2MhJMELxsXuw3rvfC7o0dI-V7fMJKOTwMJ6eP_4ZmADAn6fo0Cg8oMWxGtUdIVMorpXXeiFB5ZDYNZSGFRo55rakIA_7lKrrevr505eLtGv1cFQQeUbYb4aGqkKdgx9yq3HXTCWQEaDPTD6W5XBbh3U"/>
+</div>
+</div>
+</header>
+<main class="ml-64 pt-24 px-8 pb-12 max-w-7xl mx-auto min-h-screen">
+<section class="mb-10">
+<h2 class="text-4xl font-extrabold font-headline tracking-tight text-on-surface">Hello, Alex!</h2>
+<p class="text-on-surface-variant mt-2 text-lg">Your cognitive sanctuary is ready. Continue your TOEIC mastery.</p>
+</section>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-outline-variant/10 group hover:shadow-md transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-primary/10 rounded-2xl text-primary">
+<span class="material-symbols-outlined" data-icon="style" style="font-variation-settings: 'FILL' 1;">style</span>
+</div>
+<span class="text-xs font-bold text-primary px-2 py-1 bg-primary-fixed rounded-full">MASTERED</span>
+</div>
+<h3 class="text-slate-500 font-label text-sm font-semibold uppercase tracking-wider">Total flashcards</h3>
+<p class="text-5xl font-extrabold font-headline mt-2 text-on-surface">256</p>
+<div class="mt-6 w-full bg-surface-variant h-1.5 rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-primary-container rounded-full w-[72%]"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-outline-variant/10 group hover:shadow-md transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-tertiary/10 rounded-2xl text-tertiary">
+<span class="material-symbols-outlined" data-icon="pending_actions" style="font-variation-settings: 'FILL' 1;">pending_actions</span>
+</div>
+<span class="text-xs font-bold text-tertiary px-2 py-1 bg-tertiary-fixed rounded-full">DUE TODAY</span>
+</div>
+<h3 class="text-slate-500 font-label text-sm font-semibold uppercase tracking-wider">Cards to review</h3>
+<p class="text-5xl font-extrabold font-headline mt-2 text-on-surface">42</p>
+<button class="mt-6 w-full py-3 bg-tertiary text-white rounded-md font-bold text-sm transition-all hover:bg-tertiary-container hover:scale-[1.02] active:scale-95 shadow-lg shadow-tertiary/20">
+                    START REVIEW
+                </button>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-outline-variant/10 group hover:shadow-md transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-secondary/10 rounded-2xl text-secondary">
+<span class="material-symbols-outlined" data-icon="history_edu" style="font-variation-settings: 'FILL' 1;">history_edu</span>
+</div>
+<span class="text-xs font-bold text-secondary px-2 py-1 bg-secondary-fixed rounded-full">TOTAL</span>
+</div>
+<h3 class="text-slate-500 font-label text-sm font-semibold uppercase tracking-wider">Quiz attempts</h3>
+<p class="text-5xl font-extrabold font-headline mt-2 text-on-surface">18</p>
+<div class="mt-6 flex items-center gap-2">
+<span class="text-emerald-600 font-bold flex items-center gap-1 text-sm">
+<span class="material-symbols-outlined text-sm">trending_up</span> +12%
+                    </span>
+<span class="text-slate-400 text-xs font-medium">from last week</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="lg:col-span-2 space-y-6">
+<div class="flex items-center justify-between">
+<h3 class="text-2xl font-bold font-headline">Recent Activity</h3>
+<button class="text-primary font-bold text-sm hover:underline">View All History</button>
+</div>
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden">
+<div class="divide-y divide-slate-100">
+<div class="p-5 flex items-center justify-between hover:bg-slate-50 transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-slate-500 group-hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined" data-icon="folder">folder</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Finished Topic: Business Basics</p>
+<p class="text-xs text-slate-400 font-medium">Completed 24 new words</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-xs font-bold text-emerald-600 px-3 py-1 bg-emerald-50 rounded-full border border-emerald-100">Success</span>
+<span class="text-xs text-slate-400 tabular-nums">2h ago</span>
+</div>
+</div>
+<div class="p-5 flex items-center justify-between hover:bg-slate-50 transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-slate-500 group-hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined" data-icon="quiz">quiz</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Completed Quiz: TOEIC 1</p>
+<p class="text-xs text-slate-400 font-medium">Score: 840/990</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-xs font-bold text-blue-600 px-3 py-1 bg-blue-50 rounded-full border border-blue-100">High Score</span>
+<span class="text-xs text-slate-400 tabular-nums">5h ago</span>
+</div>
+</div>
+<div class="p-5 flex items-center justify-between hover:bg-slate-50 transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-slate-500 group-hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
+</div>
+<div>
+<p class="font-bold text-on-surface">Study Session: Office Vocabulary</p>
+<p class="text-xs text-slate-400 font-medium">Spent 45 minutes studying</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-xs font-bold text-amber-600 px-3 py-1 bg-amber-50 rounded-full border border-amber-100">In Progress</span>
+<span class="text-xs text-slate-400 tabular-nums">Yesterday</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="space-y-6">
+<h3 class="text-2xl font-bold font-headline">Recommended Focus</h3>
+<div class="bg-gradient-to-br from-primary to-primary-container p-1 rounded-xl shadow-lg shadow-primary/20">
+<div class="bg-surface-container-lowest p-6 rounded-[calc(1rem-4px)] flex flex-col gap-4">
+<div class="aspect-video w-full rounded-lg bg-slate-100 overflow-hidden relative">
+<img alt="Business Meeting" class="w-full h-full object-cover grayscale opacity-20" data-alt="Office environment showing a team discussing strategy in a modern boardroom" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1Ke96r8sug7Sp_uSNHS-PWjTmW0-Dwov-kk_aO-rOgARSqIUWt0rmQ4QemRri6siEWXW6zJxA7U_76zSOMOUnd-W21CSJb2ITABJdCpcH3Z5k1-dDcfR3MWaUmU67shN3R7DVItb6IxucmmmVOD0EMFhKtyN6EHKY7otvhXXuUC0vy0uOMuDmDGs19mEJbBqCCU2xeE9nacRJC4kpD6WQcE0lh1z7uv9ACSxPMAZot6XS9DapEdGPLNSlKxw8LyyWvIFHuSGHWhc"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="bg-primary text-white p-3 rounded-full shadow-xl">
+<span class="material-symbols-outlined" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+</div>
+<div>
+<span class="text-[10px] font-bold tracking-widest text-primary uppercase">Current Focus</span>
+<h4 class="text-lg font-bold mt-1">Corporate Strategy Vocabulary</h4>
+<p class="text-sm text-slate-500 mt-2 line-clamp-2">Master 15 high-frequency TOEIC words related to management and negotiation.</p>
+</div>
+<button class="w-full py-3 bg-primary text-white rounded-md font-bold text-sm hover:bg-primary-container transition-all">
+                            RESUME LESSON
+                        </button>
+</div>
+</div>
+<div class="bg-surface-container-high p-6 rounded-xl border border-outline-variant/10">
+<h4 class="font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-amber-500" data-icon="workspace_premium" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+                        Next Achievement
+                    </h4>
+<div class="mt-4 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full border-4 border-primary/20 border-t-primary flex items-center justify-center text-sm font-bold">
+                            85%
+                        </div>
+<div>
+<p class="text-sm font-bold text-on-surface">Grammar Guru</p>
+<p class="text-xs text-slate-500">3 quizzes left to unlock</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<div class="fixed bottom-8 right-8 z-50">
+<button class="bg-primary text-white w-14 h-14 rounded-full shadow-2xl shadow-primary/40 flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-300">
+<span class="material-symbols-outlined text-3xl" data-icon="add">add</span>
+</button>
+</div>
+</body></html>

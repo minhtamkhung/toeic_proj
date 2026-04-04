@@ -21,8 +21,7 @@ public class UserController {
     @GetMapping("/me")
     public ResponseEntity<ApiResponse<UserResponse>> getMe() {
         return ResponseEntity.ok(
-                ApiResponse.ok(userService.getMe())
-        );
+                ApiResponse.ok(userService.getMe()));
     }
 
     // Cập nhật profile
@@ -31,8 +30,7 @@ public class UserController {
             @Valid @RequestBody UpdateProfileRequest request) {
         System.out.println("🔥 HIT UPDATE PROFILE");
         return ResponseEntity.ok(
-                ApiResponse.ok(userService.updateMe(request), "Cập nhật profile thành công")
-        );
+                ApiResponse.ok(userService.updateMe(request), "Cập nhật profile thành công"));
     }
 
     // Đổi mật khẩu
