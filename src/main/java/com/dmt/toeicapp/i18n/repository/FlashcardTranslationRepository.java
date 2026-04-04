@@ -10,14 +10,11 @@ import java.util.Optional;
 
 public interface FlashcardTranslationRepository extends JpaRepository<FlashcardTranslation, Long> {
 
-    // Lấy bản dịch theo flashcard + locale — dùng khi hiển thị 1 card
     Optional<FlashcardTranslation> findByFlashcardIdAndLocale(Long flashcardId, String locale);
 
-    // Lấy tất cả bản dịch của 1 flashcard — dùng khi admin quản lý
     List<FlashcardTranslation> findByFlashcardId(Long flashcardId);
 
-    // Lấy tất cả bản dịch của nhiều flashcard cùng lúc — tránh N+1 query
-    // Dùng khi load danh sách flashcard của 1 topic
+    // Batch load theo 1 locale — dùng khi danh sách, không cần toggle
     @Query("""
             SELECT t FROM FlashcardTranslation t
             WHERE t.flashcard.id IN :flashcardIds
@@ -28,9 +25,17 @@ public interface FlashcardTranslationRepository extends JpaRepository<FlashcardT
             @Param("locale") String locale
     );
 
-    // Kiểm tra bản dịch đã tồn tại chưa
+    // Batch load TẤT CẢ locale của nhiều card — dùng khi includeAllLocales=true
+    // Frontend nhận về map đầy đủ, toggle EN↔VI↔JA hoàn toàn client-side
+    @Query("""
+            SELECT t FROM FlashcardTranslation t
+            WHERE t.flashcard.id IN :flashcardIds
+            """)
+    List<FlashcardTranslation> findAllByFlashcardIds(
+            @Param("flashcardIds") List<Long> flashcardIds
+    );
+
     boolean existsByFlashcardIdAndLocale(Long flashcardId, String locale);
 
-    // Xóa tất cả bản dịch khi xóa flashcard (soft delete không cần cái này)
     void deleteByFlashcardId(Long flashcardId);
 }

@@ -20,29 +20,37 @@ public class FlashcardController {
 
     private final FlashcardService flashcardService;
 
-    // GET /api/flashcards?page=0&size=20&sort=createdAt,desc
+    // GET /api/flashcards?locale=vi&includeAllLocales=true&page=0&size=20
     @GetMapping
     public ResponseEntity<ApiResponse<Page<FlashcardResponse>>> getAccessible(
+            @RequestParam(defaultValue = "en")    String  locale,
+            @RequestParam(defaultValue = "false") boolean includeAllLocales,
             @PageableDefault(size = 20) Pageable pageable) {
         return ResponseEntity.ok(
-                ApiResponse.ok(flashcardService.getAccessible(pageable))
+                ApiResponse.ok(flashcardService.getAccessible(locale, includeAllLocales, pageable))
         );
     }
 
-    // GET /api/flashcards?topicId=1&page=0&size=20
+    // GET /api/flashcards?topicId=1&locale=vi&includeAllLocales=true
     @GetMapping(params = "topicId")
     public ResponseEntity<ApiResponse<Page<FlashcardResponse>>> getByTopic(
-            @RequestParam Long topicId,
+            @RequestParam Long   topicId,
+            @RequestParam(defaultValue = "en")    String  locale,
+            @RequestParam(defaultValue = "false") boolean includeAllLocales,
             @PageableDefault(size = 20) Pageable pageable) {
         return ResponseEntity.ok(
-                ApiResponse.ok(flashcardService.getByTopic(topicId, pageable))
+                ApiResponse.ok(flashcardService.getByTopic(topicId, locale, includeAllLocales, pageable))
         );
     }
 
+    // GET /api/flashcards/1?locale=vi&includeAllLocales=true
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<FlashcardResponse>> getById(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<FlashcardResponse>> getById(
+            @PathVariable Long id,
+            @RequestParam(defaultValue = "en")    String  locale,
+            @RequestParam(defaultValue = "false") boolean includeAllLocales) {
         return ResponseEntity.ok(
-                ApiResponse.ok(flashcardService.getById(id))
+                ApiResponse.ok(flashcardService.getById(id, locale, includeAllLocales))
         );
     }
 
@@ -66,10 +74,9 @@ public class FlashcardController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         flashcardService.delete(id);
-        return ResponseEntity.noContent().build(); // 204
+        return ResponseEntity.noContent().build();
     }
 
-    // POST /api/flashcards/{id}/image  — multipart/form-data
     @PostMapping("/{id}/image")
     public ResponseEntity<ApiResponse<FlashcardResponse>> uploadImage(
             @PathVariable Long id,

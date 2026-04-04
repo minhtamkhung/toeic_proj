@@ -18,17 +18,22 @@ public class TopicController {
 
     private final TopicService topicService;
 
+    // GET /api/topics?locale=vi
     @GetMapping
-    public ResponseEntity<ApiResponse<List<TopicResponse>>> getAccessible() {
+    public ResponseEntity<ApiResponse<List<TopicResponse>>> getAccessible(
+            @RequestParam(defaultValue = "en") String locale) {
         return ResponseEntity.ok(
-                ApiResponse.ok(topicService.getAccessible())
+                ApiResponse.ok(topicService.getAccessible(locale))
         );
     }
 
+    // GET /api/topics/1?locale=vi
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<TopicResponse>> getById(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<TopicResponse>> getById(
+            @PathVariable Long id,
+            @RequestParam(defaultValue = "en") String locale) {
         return ResponseEntity.ok(
-                ApiResponse.ok(topicService.getById(id))
+                ApiResponse.ok(topicService.getById(id, locale))
         );
     }
 
@@ -52,6 +57,6 @@ public class TopicController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         topicService.delete(id);
-        return ResponseEntity.noContent().build(); // 204
+        return ResponseEntity.noContent().build();
     }
 }

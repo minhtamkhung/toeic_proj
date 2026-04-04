@@ -8,27 +8,21 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface FlashcardService {
 
-    // Lấy tất cả flashcard user được thấy (có phân trang)
-    Page<FlashcardResponse> getAccessible(Pageable pageable);
+    // locale: ngôn ngữ chính hiển thị ('en', 'vi', 'ja'...)
+    // includeAllLocales: true → trả về Map<locale, content> cho toggle client-side
+    Page<FlashcardResponse> getAccessible(String locale, boolean includeAllLocales, Pageable pageable);
 
-    // Lấy flashcard theo topic (kiểm tra quyền truy cập topic trong service)
-    Page<FlashcardResponse> getByTopic(Long topicId, Pageable pageable);
+    Page<FlashcardResponse> getByTopic(Long topicId, String locale, boolean includeAllLocales, Pageable pageable);
 
-    // Lấy 1 flashcard theo id
-    FlashcardResponse getById(Long id);
+    FlashcardResponse getById(Long id, String locale, boolean includeAllLocales);
 
-    // Tạo mới — không kèm ảnh, upload ảnh riêng qua endpoint /image
     FlashcardResponse create(FlashcardRequest request);
 
-    // Cập nhật nội dung — chỉ owner hoặc ADMIN
     FlashcardResponse update(Long id, FlashcardRequest request);
 
-    // Xóa mềm (soft delete) — chỉ owner hoặc ADMIN
     void delete(Long id);
 
-    // Upload / thay ảnh lên Cloudinary
     FlashcardResponse uploadImage(Long id, MultipartFile file);
 
-    // Xóa ảnh khỏi Cloudinary và clear imageUrl trong DB
     FlashcardResponse deleteImage(Long id);
 }
