@@ -4,6 +4,8 @@ import com.dmt.toeicapp.common.exception.AppException;
 import com.dmt.toeicapp.common.security.SecurityUtils;
 import com.dmt.toeicapp.flashcard.entity.Flashcard;
 import com.dmt.toeicapp.flashcard.repository.FlashcardRepository;
+import com.dmt.toeicapp.i18n.entity.FlashcardTranslation;
+import com.dmt.toeicapp.i18n.repository.FlashcardTranslationRepository;
 import com.dmt.toeicapp.quiz.dto.*;
 import com.dmt.toeicapp.quiz.entity.QuizAnswer;
 import com.dmt.toeicapp.quiz.entity.QuizAttempt;
@@ -25,6 +27,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -35,104 +39,90 @@ public class QuizServiceImpl implements QuizService {
     private final QuizAnswerRepository  quizAnswerRepository;
     private final FlashcardRepository   flashcardRepository;
     private final TopicRepository       topicRepository;
+    private final FlashcardTranslationRepository translationRepository;
     private final UserRepository        userRepository;
 
     private static final int OPTIONS_COUNT = 4; // số đáp án mỗi câu
 
     @Override
     @Transactional
-    public QuizAttemptSummary start(QuizStartRequest request) {
+    public QuizAttemptSummary start(QuizStartRequest request, String locale) {
         Long currentUserId = SecurityUtils.getCurrentUserId();
-
-        // Kiểm tra topic tồn tại và user có quyền truy cập
         Topic topic = topicRepository.findById(request.topicId())
-                .orElseThrow(() -> AppException.notFound(
-                        "Không tìm thấy topic với id = " + request.topicId()));
+                .orElseThrow(() -> AppException.notFound("Không tìm thấy topic"));
 
-        if (!topic.isSystem() && !topic.getCreatedBy().getId().equals(currentUserId)) {
-            throw AppException.forbidden("Bạn không có quyền truy cập topic này");
-        }
-
-        // Lấy flashcard từ topic — random shuffle, lấy đủ số câu
         List<Flashcard> allCards = flashcardRepository
-                .findByTopicId(topic.getId(), PageRequest.of(0, 200))
-                .getContent();
+                .findByTopicId(topic.getId(), PageRequest.of(0, 200)).getContent();
 
-        if (allCards.isEmpty()) {
-            throw AppException.badRequest(
-                    "Topic này chưa có flashcard nào", "TOPIC_NO_FLASHCARDS");
-        }
+        if (allCards.isEmpty()) throw AppException.badRequest("Topic không có flashcard", "TOPIC_EMPTY");
 
-        // Shuffle và lấy đúng số câu yêu cầu
+        // 1. Lấy toàn bộ bản dịch của card trong topic cho locale hiện tại
+        Map<Long, String> localizedDefs = translationRepository
+                .findByFlashcardIdsAndLocale(allCards.stream().map(Flashcard::getId).toList(), locale)
+                .stream()
+                .collect(Collectors.toMap(t -> t.getFlashcard().getId(), FlashcardTranslation::getDefinition));
+
         List<Flashcard> mutableCards = new ArrayList<>(allCards);
         Collections.shuffle(mutableCards);
+        List<Flashcard> selectedCards = mutableCards.stream().limit(request.questionCount()).toList();
 
-        List<Flashcard> selectedCards = mutableCards.stream()
-                .limit(request.questionCount())
-                .toList();
+        QuizAttempt attempt = quizAttemptRepository.save(QuizAttempt.builder()
+                .user(userRepository.getReferenceById(currentUserId))
+                .topic(topic).totalQuestions(selectedCards.size()).build());
 
-        // Tạo QuizAttempt
-        User user = userRepository.getReferenceById(currentUserId);
-        QuizAttempt attempt = QuizAttempt.builder()
-                .user(user)
-                .topic(topic)
-                .quizType(QuizAttempt.QuizType.MULTIPLE_CHOICE)
-                .totalQuestions(selectedCards.size())
-                .build();
-        attempt = quizAttemptRepository.save(attempt);
+        // 2. Tạo câu hỏi với đáp án nhiễu theo đúng locale
+        List<QuizQuestionResponse> questions = selectedCards.stream().map(card -> {
+            // Ưu tiên bản dịch, nếu không có thì dùng định nghĩa gốc
+            String correctDef = localizedDefs.getOrDefault(card.getId(), card.getDefinition());
 
-        // Generate câu hỏi với đáp án nhiễu
-        List<QuizQuestionResponse> questions = generateQuestions(selectedCards, mutableCards);
+            List<String> options = new ArrayList<>();
+            options.add(correctDef);
 
-        log.info("Quiz started: attemptId={}, userId={}, topicId={}, questions={}",
-                attempt.getId(), currentUserId, topic.getId(), selectedCards.size());
+            List<String> distractors = allCards.stream()
+                    .filter(c -> !c.getId().equals(card.getId()))
+                    .map(c -> localizedDefs.getOrDefault(c.getId(), c.getDefinition()))
+                    .distinct().collect(Collectors.toList());
+            Collections.shuffle(distractors);
+            distractors.stream().limit(3).forEach(options::add);
+
+            while (options.size() < 4) options.add("None of the above");
+            Collections.shuffle(options);
+
+            return new QuizQuestionResponse(card.getId(), card.getWord(), card.getPronunciation(), options);
+        }).toList();
 
         return toSummary(attempt, topic, questions);
     }
 
     @Override
     @Transactional
-    public QuizAnswerResponse answer(Long attemptId, QuizAnswerRequest request) {
+    public QuizAnswerResponse answer(Long attemptId, QuizAnswerRequest request, String locale) {
         Long currentUserId = SecurityUtils.getCurrentUserId();
+        QuizAttempt attempt = quizAttemptRepository.findByIdAndUserId(attemptId, currentUserId)
+                .orElseThrow(() -> AppException.notFound("Không tìm thấy lượt làm bài"));
 
-        QuizAttempt attempt = quizAttemptRepository
-                .findByIdAndUserId(attemptId, currentUserId)
-                .orElseThrow(() -> AppException.notFound("Không tìm thấy quiz attempt"));
+        Flashcard flashcard = flashcardRepository.findByIdAndActiveTrue(request.flashcardId())
+                .orElseThrow(() -> AppException.notFound("Không tìm thấy thẻ từ"));
 
-        if (attempt.getFinishedAt() != null) {
-            throw AppException.badRequest("Quiz này đã kết thúc", "QUIZ_ALREADY_FINISHED");
-        }
+        // FIX: Lấy định nghĩa đúng theo locale để đối soát
+        String correctAnswer = translationRepository.findByFlashcardIdAndLocale(flashcard.getId(), locale)
+                .map(FlashcardTranslation::getDefinition)
+                .orElse(flashcard.getDefinition());
 
-        Flashcard flashcard = flashcardRepository
-                .findByIdAndActiveTrue(request.flashcardId())
-                .orElseThrow(() -> AppException.notFound("Không tìm thấy flashcard"));
+        // FIX: Trim cả 2 vế để tránh lỗi khoảng trắng thừa
+        boolean isCorrect = correctAnswer.trim().equalsIgnoreCase(request.selectedAnswer().trim());
 
-        // Đáp án đúng là definition của flashcard
-        String correctAnswer = flashcard.getDefinition();
-        boolean isCorrect    = correctAnswer.equalsIgnoreCase(request.selectedAnswer().trim());
+        quizAnswerRepository.save(QuizAnswer.builder()
+                .attempt(attempt).flashcard(flashcard)
+                .selectedAnswer(request.selectedAnswer()).isCorrect(isCorrect)
+                .timeSpentSeconds(request.timeSpentSeconds()).build());
 
-        // Lưu câu trả lời
-        QuizAnswer quizAnswer = QuizAnswer.builder()
-                .attempt(attempt)
-                .flashcard(flashcard)
-                .selectedAnswer(request.selectedAnswer())
-                .isCorrect(isCorrect)
-                .timeSpentSeconds(request.timeSpentSeconds())
-                .build();
-        quizAnswerRepository.save(quizAnswer);
-
-        // Cập nhật số câu đúng realtime
         if (isCorrect) {
             attempt.setCorrectAnswers(attempt.getCorrectAnswers() + 1);
             quizAttemptRepository.save(attempt);
         }
 
-        return new QuizAnswerResponse(
-                flashcard.getId(),
-                request.selectedAnswer(),
-                correctAnswer,
-                isCorrect
-        );
+        return new QuizAnswerResponse(flashcard.getId(), request.selectedAnswer(), correctAnswer, isCorrect);
     }
 
     @Override
@@ -211,60 +201,9 @@ public class QuizServiceImpl implements QuizService {
 
     // ── Private helpers ───────────────────────────────────────
 
-    // Generate 4 đáp án cho mỗi câu: 1 đúng + 3 nhiễu từ các card khác
-    private List<QuizQuestionResponse> generateQuestions(
-            List<Flashcard> selectedCards,
-            List<Flashcard> allCards) {
-
-        return selectedCards.stream().map(card -> {
-            List<String> options = new ArrayList<>();
-            options.add(card.getDefinition()); // đáp án đúng
-
-            // Lấy 3 đáp án nhiễu từ các card khác
-            List<String> wrongOptions = new ArrayList<>(
-                    allCards.stream()
-                            .filter(c -> !c.getId().equals(card.getId()))
-                            .map(Flashcard::getDefinition)
-                            .distinct()
-                            .toList()
-            );
-
-            Collections.shuffle(wrongOptions);
-
-            wrongOptions.stream()
-                    .limit(OPTIONS_COUNT - 1)
-                    .forEach(options::add);
-
-            // Nếu không đủ 4 đáp án thì bổ sung placeholder
-            while (options.size() < OPTIONS_COUNT) {
-                options.add("None of the above");
-            }
-
-            Collections.shuffle(options); // shuffle để đáp án đúng không luôn ở vị trí đầu
-
-            return new QuizQuestionResponse(
-                    card.getId(),
-                    card.getWord(),
-                    card.getPronunciation(),
-                    options
-            );
-        }).toList();
-    }
-
-    private QuizAttemptSummary toSummary(QuizAttempt attempt, Topic topic,
-                                         List<QuizQuestionResponse> questions) {
-        return new QuizAttemptSummary(
-                attempt.getId(),
-                topic != null ? topic.getId() : null,
-                topic != null ? topic.getName() : null,
-                attempt.getQuizType().name(),
-                attempt.getTotalQuestions(),
-                attempt.getCorrectAnswers(),
-                attempt.getScore(),
-                attempt.getDurationSeconds(),
-                attempt.getStartedAt(),
-                attempt.getFinishedAt(),
-                questions
-        );
+    private QuizAttemptSummary toSummary(QuizAttempt a, Topic t, List<QuizQuestionResponse> q) {
+        return new QuizAttemptSummary(a.getId(), t.getId(), t.getName(), a.getQuizType().name(),
+                a.getTotalQuestions(), a.getCorrectAnswers(), a.getScore(), a.getDurationSeconds(),
+                a.getStartedAt(), a.getFinishedAt(), q);
     }
 }

@@ -1,135 +1,176 @@
 import { useEffect, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Layout from '../components/Layout'
-import flashcardApi from '../api/flashcardApi'
 import progressApi from '../api/progressApi'
+import { useLanguage } from '../context/LanguageContext'
 
-export default function FlashcardPage() {
-    const { topicId }             = useParams()
-    const navigate                = useNavigate()
-    const [cards, setCards]       = useState([])
-    const [index, setIndex]       = useState(0)
-    const [flipped, setFlipped]   = useState(false)
-    const [loading, setLoading]   = useState(true)
-    const [feedback, setFeedback] = useState('')
+const LANG_LABELS = {
+    en: 'ENGLISH', vi: 'VIETNAMESE', ja: 'JAPANESE', ko: 'KOREAN',
+}
+
+export default function StudyPage() {
+    const navigate                  = useNavigate()
+    const { locale }                = useLanguage()
+
+    const [progressList, setProgressList] = useState([]) // Chứa mảng ProgressResponse
+    const [index, setIndex]               = useState(0)
+    const [flipped, setFlipped]           = useState(false)
+    const [loading, setLoading]           = useState(true)
+    const [feedback, setFeedback]         = useState('')
+
+    const [cardLang, setCardLang]   = useState(locale)
+    const [showExtra, setShowExtra] = useState(false)
+
+    useEffect(() => { setCardLang(locale) }, [locale])
 
     useEffect(() => {
-        flashcardApi.getByTopic(topicId)
-            .then(r => setCards(r.data.data?.content || []))
-            .finally(() => setLoading(false))
-    }, [topicId])
+        setShowExtra(false)
+        setFlipped(false)
+    }, [index])
 
-    const handleQuality = async (flashcardId, quality) => {
+    useEffect(() => {
+        setLoading(true)
+        // Truyền locale để BE map đúng nội dung dịch ngay từ đầu
+        progressApi.getDueCards(locale)
+            .then(r => setProgressList(r.data.data || []))
+            .finally(() => setLoading(false))
+    }, [locale])
+
+    // Lấy progress record hiện tại
+    const currentProgress = progressList[index]
+    // TRUY CẬP ĐÚNG OBJECT: Lấy thông tin flashcard từ progress record
+    const card = currentProgress?.flashcard
+
+    const handleQuality = async (quality) => {
+        if (!card) return
         try {
-            await progressApi.review({ flashcardId, quality })
-            setFeedback(quality >= 3 ? '✓ Got it' : '↺ Review again')
+            // Sử dụng card.id (id của flashcard) thay vì id của progress record
+            await progressApi.review({ flashcardId: card.id, quality }, locale)
+            setFeedback(quality >= 3 ? '✓ Memorized' : '↺ See you soon')
+
             setTimeout(() => {
                 setFeedback('')
-                setFlipped(false)
+                setCardLang(locale)
                 setIndex(i => i + 1)
             }, 700)
         } catch { setFeedback('Error') }
     }
 
-    const card = cards[index]
+    const getContent = (c) => {
+        if (!c) return { definition: '', example: '' }
+        if (cardLang === 'en' || cardLang === c.primaryLocale) {
+            const isEn = cardLang === 'en'
+            return {
+                definition: isEn ? c.definition : (c.primaryDefinition || c.definition),
+                example:    isEn ? c.exampleSentence : (c.primaryExample || c.exampleSentence),
+            }
+        }
+        const tr = c.translations?.[cardLang]
+        return {
+            definition: tr?.definition || c.primaryDefinition || c.definition,
+            example:    tr?.exampleSentence || c.primaryExample || c.exampleSentence,
+        }
+    }
+
+    const coreLangs = ['en', locale].filter((v, i, a) => v && a.indexOf(v) === i)
+    const extraLangs = card
+        ? Object.keys(card.translations || {}).filter(l => !coreLangs.includes(l))
+        : []
 
     return (
         <Layout>
-            <div className="max-w-3xl mx-auto">
-                <button onClick={() => navigate('/topics')}
-                        className="flex items-center gap-2 text-primary font-bold text-sm mb-8 hover:underline">
-                    <span className="material-symbols-outlined text-sm">arrow_back</span>
-                    Back to Topics
-                </button>
+            <div className="max-w-4xl mx-auto">
+                <header className="mb-10">
+                    <h1 className="text-4xl font-extrabold font-headline text-on-surface tracking-tight mb-2">Daily Review</h1>
+                    <p className="text-on-surface-variant">Ôn tập dựa trên thuật toán SM-2.</p>
+                </header>
 
                 {loading ? (
                     <div className="flex justify-center mt-20">
                         <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
                     </div>
-                ) : cards.length === 0 ? (
-                    <div className="text-center mt-20">
-                        <span className="material-symbols-outlined text-5xl text-outline block mb-3">style</span>
-                        <p className="text-on-surface-variant">No flashcards in this topic yet.</p>
+                ) : progressList.length === 0 ? (
+                    <div className="text-center mt-20 bg-surface-container-low p-12 rounded-[2rem] border border-dashed border-outline-variant">
+                        <span className="material-symbols-outlined text-6xl text-primary mb-4">task_alt</span>
+                        <h2 className="text-2xl font-bold font-headline mb-2">You're all caught up!</h2>
+                        <button onClick={() => navigate('/topics')} className="bg-primary text-white px-8 py-3 rounded-full font-bold">Explore Topics</button>
                     </div>
-                ) : index >= cards.length ? (
+                ) : index >= progressList.length ? (
                     <div className="text-center mt-20">
-                        <div className="w-20 h-20 bg-gradient-to-br from-primary to-primary-container rounded-xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-primary/30">
-              <span className="material-symbols-outlined text-white text-4xl"
-                    style={{ fontVariationSettings: "'FILL' 1" }}>done_all</span>
-                        </div>
-                        <h2 className="font-headline text-3xl font-bold mb-2">All done!</h2>
-                        <p className="text-on-surface-variant mb-6">You've reviewed all {cards.length} cards.</p>
-                        <button onClick={() => { setIndex(0); setFlipped(false) }}
-                                className="bg-primary text-on-primary px-8 py-3 rounded-DEFAULT font-bold shadow-lg hover:scale-105 transition-all">
-                            Start Over
-                        </button>
+                        <h2 className="font-headline text-3xl font-bold mb-2">Session Complete!</h2>
+                        <button onClick={() => navigate('/home')} className="bg-primary text-white px-10 py-4 rounded-full font-bold">Back to Dashboard</button>
                     </div>
                 ) : (
                     <>
-                        {/* Progress */}
-                        <div className="flex justify-between items-center mb-6">
-                            <p className="text-sm font-bold text-outline uppercase tracking-wider">
-                                {index + 1} / {cards.length} cards
-                            </p>
-                            {feedback && (
-                                <span className="text-sm font-bold text-primary bg-primary-fixed px-3 py-1 rounded-full">
-                  {feedback}
-                </span>
+                        <div className="mb-8">
+                            <div className="flex justify-between text-xs font-bold text-outline uppercase mb-2">
+                                <span>Card {index + 1} of {progressList.length}</span>
+                                <span>{feedback}</span>
+                            </div>
+                            <div className="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+                                <div className="bg-primary h-full transition-all duration-500" style={{ width: `${((index + 1) / progressList.length) * 100}%` }} />
+                            </div>
+                        </div>
+
+                        <div className="w-full relative cursor-pointer mb-12">
+                            <div className="relative flip-card" style={{ height: '420px' }}>
+                                <div className={`flip-inner w-full h-full ${flipped ? 'flipped' : ''}`}>
+                                    <div className="flip-front bg-surface-container-lowest rounded-[2.5rem] shadow-xl flex flex-col items-center justify-center p-12 border border-outline-variant/10" onClick={() => setFlipped(true)}>
+                                        <h2 className="font-headline text-5xl md:text-6xl font-extrabold text-on-surface text-center">{card?.word}</h2>
+                                        <p className="mt-4 text-on-surface-variant text-xl italic">{card?.pronunciation}</p>
+                                    </div>
+
+                                    <div className="flip-back bg-surface-container-lowest rounded-[2.5rem] shadow-xl flex flex-col p-8 border border-outline-variant/10">
+                                        <div className="flex bg-surface-container-low p-1.5 rounded-2xl mb-6 items-center">
+                                            {coreLangs.map(lang => (
+                                                <button key={lang} onClick={() => setCardLang(lang)}
+                                                        className={`flex-1 py-3 px-4 rounded-xl text-xs font-bold transition-all ${cardLang === lang ? 'bg-surface-container-lowest shadow-sm text-secondary' : 'text-on-surface-variant'}`}>
+                                                    {LANG_LABELS[lang] || lang.toUpperCase()}
+                                                </button>
+                                            ))}
+                                            {extraLangs.length > 0 && (
+                                                <div className="relative ml-1">
+                                                    <button onClick={() => setShowExtra(!showExtra)} className="p-3 text-on-surface-variant"><span className="material-symbols-outlined">more_vert</span></button>
+                                                    {showExtra && (
+                                                        <div className="absolute right-0 bottom-full mb-2 bg-surface-container-lowest shadow-2xl rounded-xl p-2 z-50 min-w-[140px]">
+                                                            {extraLangs.map(lang => (
+                                                                <button key={lang} onClick={() => { setCardLang(lang); setShowExtra(false) }} className="w-full text-left px-4 py-2 text-xs font-bold">{LANG_LABELS[lang] || lang.toUpperCase()}</button>
+                                                            ))}
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div className="flex-1 flex flex-col justify-center px-4">
+                                            <div className="bg-surface-container-low rounded-[2rem] p-8">
+                                                <p className="text-2xl font-medium text-on-surface">{getContent(card).definition}</p>
+                                                {getContent(card).example && <p className="mt-6 pt-6 border-t border-outline-variant/20 italic text-on-surface-variant">"{getContent(card).example}"</p>}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="flex flex-col items-center gap-6">
+                            {!flipped ? (
+                                <p className="text-outline text-sm font-bold animate-pulse">LẬT THẺ ĐỂ ĐÁNH GIÁ</p>
+                            ) : (
+                                <div className="grid grid-cols-4 gap-3 w-full">
+                                    {[
+                                        { q: 0, label: 'Forgot', icon: 'replay', color: 'text-error' },
+                                        { q: 3, label: 'Hard', icon: 'sentiment_neutral', color: 'text-tertiary' },
+                                        { q: 4, label: 'Good', icon: 'sentiment_satisfied', color: 'text-secondary' },
+                                        { q: 5, label: 'Easy', icon: 'auto_awesome', color: 'text-primary' },
+                                    ].map(({ q, label, icon, color }) => (
+                                        <button key={q} onClick={() => handleQuality(q)} className={`flex flex-col items-center p-4 rounded-2xl bg-surface-container-lowest border-2 shadow-sm ${color}`}>
+                                            <span className="material-symbols-outlined text-2xl">{icon}</span>
+                                            <span className="text-xs font-bold">{label}</span>
+                                        </button>
+                                    ))}
+                                </div>
                             )}
                         </div>
-                        <div className="w-full h-1.5 bg-surface-variant rounded-full overflow-hidden mb-10">
-                            <div className="h-full bg-gradient-to-r from-primary to-primary-container rounded-full transition-all duration-500"
-                                 style={{ width: `${(index / cards.length) * 100}%` }} />
-                        </div>
-
-                        {/* Card */}
-                        <div className="relative flip-card" style={{ height: '340px' }}>
-                            <div className={`flip-inner w-full h-full ${flipped ? 'flipped' : ''}`}>
-
-                                {/* Front */}
-                                <div className="flip-front bg-surface-container-lowest rounded-xl shadow-[0_40px_80px_-20px_rgba(0,88,190,0.08)] flex flex-col items-center justify-center text-center p-12 cursor-pointer border border-outline-variant/10 hover:scale-[1.01] transition-transform"
-                                     onClick={() => setFlipped(true)}>
-                                    <span className="text-xs font-bold text-primary tracking-widest uppercase mb-6 block">Term</span>
-                                    <h2 className="font-headline text-5xl font-extrabold text-on-surface mb-3">{card.word}</h2>
-                                    {card.pronunciation && (
-                                        <p className="italic text-on-surface-variant text-xl">{card.pronunciation}</p>
-                                    )}
-                                    <p className="text-outline text-sm mt-8">Tap to see definition</p>
-                                </div>
-
-                                {/* Back */}
-                                <div className="flip-back bg-surface-container-lowest rounded-xl shadow-[0_40px_80px_-20px_rgba(0,88,190,0.08)] flex flex-col items-center justify-center text-center p-12 border border-outline-variant/10">
-                                    <span className="text-xs font-bold text-tertiary tracking-widest uppercase mb-4 block">Definition</span>
-                                    <p className="text-xl text-on-surface-variant leading-relaxed max-w-md">{card.definition}</p>
-                                    {card.exampleSentence && (
-                                        <div className="mt-6 bg-surface-container-low rounded-lg p-4 text-left max-w-md w-full">
-                                            <p className="italic text-on-surface text-sm">"{card.exampleSentence}"</p>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-
-                            <div className="absolute -bottom-3 left-4 right-4 h-3 bg-white/40 rounded-b-xl -z-10 blur-[1px]" />
-                            <div className="absolute -bottom-6 left-8 right-8 h-3 bg-white/20 rounded-b-xl -z-20 blur-[2px]" />
-                        </div>
-
-                        {/* Quality buttons */}
-                        {flipped && (
-                            <div className="mt-12 grid grid-cols-4 gap-3">
-                                {[
-                                    { q: 0, label: 'Again',  icon: 'replay',                    color: 'hover:bg-error-container text-error' },
-                                    { q: 2, label: 'Hard',   icon: 'sentiment_dissatisfied',    color: 'hover:bg-tertiary-fixed text-tertiary' },
-                                    { q: 4, label: 'Good',   icon: 'sentiment_satisfied',       color: 'hover:bg-secondary-container text-secondary' },
-                                    { q: 5, label: 'Easy',   icon: 'sentiment_very_satisfied',  color: 'hover:bg-primary-fixed text-primary' },
-                                ].map(({ q, label, icon, color }) => (
-                                    <button key={q} onClick={() => handleQuality(card.id, q)}
-                                            className={`flex flex-col items-center gap-2 p-4 rounded-lg bg-surface-container-high ${color} transition-all duration-300 active:scale-95`}>
-                                        <span className="material-symbols-outlined text-xl">{icon}</span>
-                                        <span className="text-sm font-bold font-headline">{label}</span>
-                                    </button>
-                                ))}
-                            </div>
-                        )}
                     </>
                 )}
             </div>

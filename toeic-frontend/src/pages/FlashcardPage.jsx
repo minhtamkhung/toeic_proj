@@ -45,7 +45,7 @@ export default function FlashcardPage() {
     const handleQuality = async (flashcardId, quality) => {
         try {
             await progressApi.review({ flashcardId, quality })
-            setFeedback(quality >= 3 ? '✓ Got it' : '↺ Review again')
+            setFeedback(quality > 3 ? '✓ Got it' : '↺ Review again')
             setTimeout(() => {
                 setFeedback('')
                 setCardLang(locale) // Reset về ngôn ngữ chính cho thẻ tiếp theo
@@ -210,19 +210,51 @@ export default function FlashcardPage() {
                                 </div>
                             </div>
                         </div>
-
-                        {/* Navigation Controls */}
-                        <div className="flex items-center gap-4 justify-center">
-                            {flipped ? (
-                                <>
-                                    <button onClick={() => setFlipped(false)} className="w-14 h-14 rounded-full bg-surface-container-high flex items-center justify-center">
-                                        <span className="material-symbols-outlined">arrow_back</span>
+                        {/* Navigation + Rating controls */}
+                        <div className="flex flex-col items-center gap-6">
+                            {!flipped ? (
+                                <div className="flex flex-col items-center gap-4">
+                                    <p className="text-outline text-sm font-bold animate-pulse tracking-widest">
+                                        TAP CARD TO FLIP
+                                    </p>
+                                    {/* Nút lật thẻ giả lập cho Desktop hoặc user không muốn nhấn vào card */}
+                                    <button onClick={() => setFlipped(true)}
+                                            className="px-8 py-3 rounded-full bg-surface-container-high text-primary font-bold text-sm hover:bg-primary-fixed transition-all">
+                                        Reveal Meaning
                                     </button>
-                                    <button onClick={() => handleQuality(card.id, 0)} className="h-14 px-8 rounded-full bg-error/10 text-error font-bold">Still Learning</button>
-                                    <button onClick={() => handleQuality(card.id, 5)} className="h-14 px-8 rounded-full bg-primary text-white font-bold shadow-lg">Mastered</button>
-                                </>
+                                </div>
                             ) : (
-                                <p className="text-outline text-sm font-bold animate-pulse">TAP CARD TO FLIP</p>
+                                <div className="w-full">
+                                    <p className="text-center text-[10px] font-bold text-outline-variant uppercase tracking-[0.2em] mb-4">
+                                        How well do you know this word?
+                                    </p>
+                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                        {[
+                                            { q: 0, label: 'Forgot',  icon: 'replay',             color: 'hover:bg-error/10 text-error border-error/20' },
+                                            { q: 3, label: 'Hard',    icon: 'sentiment_neutral',  color: 'hover:bg-tertiary/10 text-tertiary border-tertiary/20' },
+                                            { q: 4, label: 'Good',    icon: 'sentiment_satisfied',color: 'hover:bg-secondary/10 text-secondary border-secondary/20' },
+                                            { q: 5, label: 'Easy',    icon: 'auto_awesome',       color: 'hover:bg-primary/10 text-primary border-primary/20' },
+                                        ].map(({ q, label, icon, color }) => (
+                                            <button
+                                                key={q}
+                                                onClick={() => handleQuality(card.id, q)}
+                                                className={`flex flex-col items-center gap-2 p-4 rounded-2xl bg-surface-container-lowest border-2 transition-all active:scale-95 shadow-sm group ${color}`}
+                                            >
+                        <span className="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">
+                            {icon}
+                        </span>
+                                                <span className="text-xs font-bold font-headline">{label}</span>
+                                            </button>
+                                        ))}
+                                    </div>
+
+                                    {/* Nút quay lại mặt trước nếu lỡ tay lật mà chưa muốn đánh giá */}
+                                    <button onClick={() => setFlipped(false)}
+                                            className="mt-6 mx-auto flex items-center gap-2 text-outline font-bold text-[10px] uppercase tracking-widest hover:text-primary transition-colors">
+                                        <span className="material-symbols-outlined text-sm">arrow_back</span>
+                                        Back to word
+                                    </button>
+                                </div>
                             )}
                         </div>
                     </>

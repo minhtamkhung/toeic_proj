@@ -18,30 +18,22 @@ public class ProgressController {
 
     private final ProgressService progressService;
 
-    // Lấy toàn bộ progress của user hiện tại
     @GetMapping("/me")
-    public ResponseEntity<ApiResponse<List<ProgressResponse>>> getMyProgress() {
-        return ResponseEntity.ok(
-                ApiResponse.ok(progressService.getMyProgress())
-        );
+    public ResponseEntity<ApiResponse<List<ProgressResponse>>> getMyProgress(
+            @RequestParam(defaultValue = "en") String locale) {
+        return ResponseEntity.ok(ApiResponse.ok(progressService.getMyProgress(locale)));
     }
 
-    // Lấy danh sách card cần ôn hôm nay — gọi mỗi khi mở app học
     @GetMapping("/due")
-    public ResponseEntity<ApiResponse<List<ProgressResponse>>> getDueCards() {
-        return ResponseEntity.ok(
-                ApiResponse.ok(progressService.getDueCards(),
-                        "Danh sách card cần ôn hôm nay")
-        );
+    public ResponseEntity<ApiResponse<List<ProgressResponse>>> getDueCards(
+            @RequestParam(defaultValue = "en") String locale) {
+        return ResponseEntity.ok(ApiResponse.ok(progressService.getDueCards(locale)));
     }
 
-    // Submit kết quả review một card
     @PostMapping("/review")
     public ResponseEntity<ApiResponse<ProgressResponse>> review(
-            @Valid @RequestBody ReviewRequest request) {
-        return ResponseEntity.ok(
-                ApiResponse.ok(progressService.review(request),
-                        "Đã ghi nhận kết quả review")
-        );
+            @Valid @RequestBody ReviewRequest request,
+            @RequestParam(defaultValue = "en") String locale) {
+        return ResponseEntity.ok(ApiResponse.ok(progressService.review(request, locale)));
     }
 }

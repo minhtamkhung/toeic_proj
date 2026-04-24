@@ -17,23 +17,22 @@ public class QuizController {
 
     private final QuizService quizService;
 
-    // Bắt đầu quiz mới
     @PostMapping("/start")
     public ResponseEntity<ApiResponse<QuizAttemptSummary>> start(
-            @Valid @RequestBody QuizStartRequest request) {
+            @Valid @RequestBody QuizStartRequest request,
+            @RequestParam(defaultValue = "en") String locale) {
         return ResponseEntity.status(201).body(
-                ApiResponse.created(quizService.start(request))
+                ApiResponse.created(quizService.start(request, locale))
         );
     }
 
-    // Submit đáp án 1 câu
+    // Cập nhật: Nhận locale khi trả lời câu hỏi để đối soát đáp án đúng ngôn ngữ
     @PostMapping("/{attemptId}/answer")
     public ResponseEntity<ApiResponse<QuizAnswerResponse>> answer(
             @PathVariable Long attemptId,
-            @Valid @RequestBody QuizAnswerRequest request) {
-        return ResponseEntity.ok(
-                ApiResponse.ok(quizService.answer(attemptId, request))
-        );
+            @Valid @RequestBody QuizAnswerRequest request,
+            @RequestParam(defaultValue = "en") String locale) {
+        return ResponseEntity.ok(ApiResponse.ok(quizService.answer(attemptId, request, locale)));
     }
 
     // Kết thúc quiz
